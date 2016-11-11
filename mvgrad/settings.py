@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'djangobower',
     'data',
+    'evaluation',
 ]
 
 MIDDLEWARE = [
