@@ -12,3 +12,12 @@ cd hackatum
 pip install -r requirements.txt
 
 python manage.py migrate
+
+Database
+========
+
+PostgreSQL 9.2+
+PostGIS
+
+psql <db name>
+CREATE EXTENSION postgis;
