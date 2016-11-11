@@ -20,4 +20,5 @@ class Bikes(models.Model):
 
     bike_ids = ArrayField(
         models.CharField(max_length=10),
+        null=True,
     )
