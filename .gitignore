@@ -13,3 +13,5 @@ Session.vim
 *.pot
 
 /db.sqlite3
+
+/ENV
