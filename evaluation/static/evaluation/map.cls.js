@@ -27,7 +27,7 @@ function heatmapManager() {
     
     this.layerList = [];
     this.center_lat =48.1564;
-    this.center_lang = 11.5691;
+    this.center_long = 11.5691;
     
     this.map = null;
     this.heatmapLayer = null;
@@ -37,16 +37,16 @@ function heatmapManager() {
     this.createMap = function(targetDivId) {
         var baseLayer =  L.tileLayer(
           'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
             maxZoom: this.baseLayerMaxZoom
           }
         )
         
         this.heatmapLayer = new HeatmapOverlay(this.cfg);
         this.map = new L.Map(targetDivId, {
-          center: new L.LatLng(this.center_lat, -this.center_lang),
+          center: new L.LatLng(this.center_lat, this.center_long),
           zoom: this.standardZoom,
-          layers: [baseLayer, heatmapLayer]
+          layers: [baseLayer, this.heatmapLayer]
         });
     }
     
