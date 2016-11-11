@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'data',
+    'evaluation',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,8 @@ DATABASES = {
         'NAME': 'hackatum',
         'USER': 'hackatum',
         'PASSWORD': 'hackatum2016',
-        'HOST': 'localhost',
+        'HOST': '10.0.0.1',
+        #'HOST': 'localhost',
     }
 }
 
