@@ -11,3 +11,5 @@ Session.vim
 *.pyo
 *.log
 *.pot
+
+/db.sqlite3
