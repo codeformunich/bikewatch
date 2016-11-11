@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'djangobower',
     'data',
 ]
 
@@ -81,7 +82,7 @@ DATABASES = {
         'NAME': 'hackatum',
         'USER': 'hackatum',
         'PASSWORD': 'hackatum2016',
-        'HOST': 'localhost',
+        'HOST': '10.0.0.1',
     }
 }
 
@@ -123,3 +124,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_FINDERS = [
+'django.contrib.staticfiles.finders.FileSystemFinder',
+'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+'djangobower.finders.BowerFinder'
+]
+
+BOWER_COMPONENTS_ROOT = BASE_DIR + '/components'
+
+BOWER_INSTALLED_APPS = (
+'heatmap.js.bower#^2.0.5',
+'leaflet'
+)
