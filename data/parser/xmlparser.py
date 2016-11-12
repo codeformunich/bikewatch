@@ -36,6 +36,7 @@ def add_xml_to_db(path):
     if root.tag != 'markers':
         raise XMLParserError('Expected root "markers"')
 
+    data = []
     for country in root:
         for city in country:
             for place in city:
@@ -68,9 +69,13 @@ def add_xml_to_db(path):
 
                 point = GEOSGeometry('POINT({} {})'.format(lng, lat))
 
-                Bikes.objects.create(timestamp=timestamp,
-                                     place_uid=place_uid,
-                                     place_name=place_name,
-                                     place_coords=point,
-                                     bikes = num_bikes,
-                                     bike_ids = bike_ids)
+                obj = Bikes(timestamp=timestamp,
+                            place_uid=place_uid,
+                            place_name=place_name,
+                            place_coords=point,
+                            bikes = num_bikes,
+                            bike_ids = bike_ids)
+                data.append(obj)
+
+    # bulk insert
+    Bikes.objects.bulk_create(data)

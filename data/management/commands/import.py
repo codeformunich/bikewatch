@@ -12,6 +12,7 @@ class Command(BaseCommand):
         for path in options['xml_path']:
             try:
                 add_xml_to_db(path)
+                print("Added: {}".format(path))
             except AlreadyImported:
                 print("Already imported: {}".format(path))
             except XMLParserError as e:
