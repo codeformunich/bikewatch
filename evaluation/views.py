@@ -49,7 +49,7 @@ def view(request, ltlat, ltlong, rblat, rblong, date, hour):
 
     # Example: http://localhost:8000/api/evaluation/48/11.55/49/12/2016-07-05/15
     # Fetch all data for the given time
-    data = Bikes.get_for_day(date).filter(timestamp__hour=hour)[:20]
+    data = Bikes.get_for_day(date).filter(timestamp__hour=hour, timestamp__minute=0)
     # Send all data
     #data = all_data.filter(place_coords__within=
     #    Polygon.from_bbox((ltlong, ltlat, rblong, rblat)))
