@@ -13,3 +13,22 @@ def get_bike_ids_for_day(date):
 def get_stations():
     return Bikes.objects.exclude(place_name__contains="BIKE").distinct(). \
         values('place_name')
+
+def get_path(bike_id, date=None):
+    if date:
+        bikes = Bikes.get_for_day(date)
+    else:
+        bikes = Bikes.objects
+
+    tmp = bikes.filter(bike_ids__contains=[bike_id]).order_by('timestamp')
+
+    path = []
+
+    last_station_uid = None
+    for cur in tmp:
+        if cur.place_uid != last_station_uid:
+            path.append(cur.place_coords)
+
+            last_station_uid = cur.place_uid
+
+    return path
