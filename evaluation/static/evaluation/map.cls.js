@@ -6,10 +6,10 @@ function heatmapManager(appName) {
     //this definition is taken from the heatmap-tutorial
     this.cfg = {
           // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-          "radius": 2,
+          "radius": 20,
           "maxOpacity": .8, 
           // scales the radius based on map zoom
-          "scaleRadius": true, 
+          "scaleRadius": false, 
           // if set to false the heatmap uses the global maximum for colorization
           // if activated: uses the data maximum within the current map boundaries 
           //   (there will always be a red spot with useLocalExtremas true)
@@ -17,7 +17,7 @@ function heatmapManager(appName) {
           // which field name in your data represents the latitude - default "lat"
           latField: 'lat',
           // which field name in your data represents the longitude - default "lng"
-          lngField: 'lng',
+          lngField: 'long',
           // which field name in your data represents the data value - default "value"
           valueField: 'count'
         };
@@ -32,7 +32,7 @@ function heatmapManager(appName) {
     this.map = null;
     this.heatmapLayer = null;
     
-    this.ajaxbaseurl = "/api/evaluation";
+    this.ajaxbaseurl = "/api";
     
     this.appName = appName;
     this.customParams = null;
@@ -70,13 +70,14 @@ function heatmapManager(appName) {
         
         var self = this;
         var jqxhr = $.get( url, function(data) {
-            try {
+            /*#ry {
+                console.log(data);
                 data = JSON.parse(data);
             } catch(err) {
                 self.callbackError("Got invalid data from server")
-            }
+            }*/
             
-            self.setHeadmapData.setData(data);
+            self.setHeadmapData(data);
            
         })
         .fail(function() {
@@ -86,7 +87,7 @@ function heatmapManager(appName) {
     }
     
     this.setHeadmapData = function(data) {
-        this.heatmapLayer.setData(data);
+        this.heatmapLayer.setData({data: data});
     }
     
     this.removeMap = function() {
