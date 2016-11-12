@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'hackatum',
         'USER': 'hackatum',
         'PASSWORD': 'hackatum2016',
-        'HOST': '10.0.0.1',
+        'HOST': '131.159.216.58',
     }
 }
 
@@ -136,5 +136,6 @@ BOWER_COMPONENTS_ROOT = BASE_DIR + '/components'
 
 BOWER_INSTALLED_APPS = (
 'heatmap.js.bower#^2.0.5',
-'leaflet'
+'leaflet',
+'bootstrap'
 )
