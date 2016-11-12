@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Gui-Development test</title>
+        <title>Heatmap Bikes</title>
 		{% load static %}
         <link rel="stylesheet" href="{% static 'leaflet/dist/leaflet.css' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
@@ -20,7 +20,8 @@
         <script src="{% static 'evaluation/map_layers/layer_heat.cls.js' %}"></script>
         <script src="{% static 'evaluation/map_layers/layer_path.cls.js' %}"></script>
 		<link rel="stylesheet" href="{% static 'seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css' %}">
-        <link rel="stylesheet" href="{% static 'css/evaluation/frame.css' %}">
+		<link rel="stylesheet" href="{% static 'css/evaluation/frame.css' %}">
+		<script src="{% static 'evaluation/appExtrapolation.cls.js' %}"></script>
         <style>
               body, html { margin:0; padding:0; height:100%;}
               .leaflet-container {
@@ -28,9 +29,10 @@
               }
         </style>
         <script>
-            var appConfig = [["Verfügbarkeit nach Zeitpunkt",appView],
-                             ["Wege der Räder",appPath]]
-			defaultApp = "Verfügbarkeit nach Zeitpunkt"
+            var appConfig = [["Avaliability by Time",appView],
+                             ["Routes of Bikes",appPath],
+							 ["Extrapolation", appExtrapolation]]
+			defaultApp = "Avaliability by Time"
         </script>
         
        
@@ -45,7 +47,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">Heatmaps</a>
+					<a class="navbar-brand" href="#">Heatmap Bikes</a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav" id="nav_container">
