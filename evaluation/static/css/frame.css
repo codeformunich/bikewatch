@@ -1,0 +1,16 @@
+h1 a {
+	color: #FCA205;
+}
+
+#content {
+	position: absolute;
+	top: 50px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+#map_container {
+	height: 100%;
+	background: blue;
+}
