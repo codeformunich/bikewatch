@@ -11,11 +11,9 @@
     	<script src="{% static 'heatmap.js-amd/plugins/leaflet-heatmap/leaflet-heatmap.js' %}"></script>
         <script src="{% static 'evaluation/map.cls.js' %}"></script>
         <script src="{% static 'evaluation/appView.cls.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/frame.css' %}">
         <style>
               body, html { margin:0; padding:0; height:100%;}
-              #map_container { height:90%; }
-              #control_container { height:5%; }
-              #nav_container { height:5%; }
               .leaflet-container {
                 background: rgba(0,0,0,.8) !important;
               }
@@ -28,8 +26,35 @@
        
     </head>
     <body>
-        <div id="nav_container"></div>
-        <div id="map_container"></div>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Heatmaps</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav" id="nav_container">
+						<li class="active"><a href="#">App1</a></li>
+						<li><a href="#about">App2</a></li>
+						<li><a href="#contact">App3</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div>
+		</nav>
+		
+		<div id="content" class="row" style="position:absolute;top:50;bottom:0;left:0;right:0">
+			<div id="map-container" class="col-md-11" style="background:blue;height:100%">
+			</div>
+			<div id="control_container" class="col-md-1">
+				<button class="btn btn-info">test</button>
+			</div>
+		</div>
+		
         <script>
             window.onload = function() {
                 defaultHandler = null;
@@ -47,7 +72,6 @@
                 };
             };
         </script>
-        <div id="control_container"></div>
     </body>
 
 
