@@ -4,6 +4,7 @@
 *.un~
 Session.vim
 .netrwhist
+.idea
 *~
 
 # python/django
