@@ -60,8 +60,8 @@ function heatmapManager(appName) {
             } catch(err) {
                 self.callbackError("Got invalid data from server")
             }*/
-            
-            self.submapLayer.setData([data[0]]); //FIXME: remove löater
+            console.log("data is: " + data);
+            self.submapLayer.setData(data.data);
            
         })
         .fail(function() {
