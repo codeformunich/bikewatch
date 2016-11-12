@@ -9,7 +9,7 @@ function appView() {
     //this.errorFunction = app.prototype.errorFunction;
     
     this.evaluateParams = function() {
-        var form = document.querySelector("#" + this.controlDiv + " form");
+        var form = document.forms.appViewForm;
         var date = form.date.value;
         var time = form.time.value;
         this.mapManager.customParams = encodeURI(date) + '/' + encodeURI(time);
@@ -24,15 +24,15 @@ function appView() {
     this.onNavbarLoaded = function() { /* has to be defined beofre runapp */
         var thiz = this;
 
-        // bind change event handlers
-        var form = document.querySelector("#" + this.controlDiv + " form");
-        $(form.date).bind('dp.change', function(){ thiz.refresh(); });
-        // TODO find out event for slider
-        //$(form.timo).change(function(){ thiz.refresh(); });
+        // bind form event handler
+        $(document.forms.appViewForm).bind('submit', function(e) {
+            e.preventDefault();
+            thiz.refresh();
+        });
 
         // init map
         this.evaluateParams();
-        this.mapManager.createMap(this.mapDiv,heatMapLayer);
+        this.mapManager.createMap(this.mapDiv, heatMapLayer);
     }
     
     this.runApp = function (mapDiv,controlDiv) {
