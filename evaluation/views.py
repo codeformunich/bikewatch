@@ -1,15 +1,12 @@
-from django.contrib.gis.geos import Polygon
-from django.db.models.functions.datetime import TruncDate
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 
 from data.models import Bikes
 from data.helpers import get_path
-from evaluation.models import BikePath
+from evaluation.models import BikePath, TextCache
 
 import json
-import math
 import datetime
 
 
@@ -30,7 +27,7 @@ def get_app_controlbar(request, appName):
         loader.get_template(template_name)
     except:
         return HttpResponse(status=404)
-    return render(request,template_name,context)
+    return render(request, template_name, context)
 
 
 def view(request, ltlat, ltlong, rblat, rblong, date, hour):
@@ -102,12 +99,7 @@ def view(request, ltlat, ltlong, rblat, rblong, date, hour):
 
 
 def view_dates(request):
-    dates = Bikes.objects.annotate(date=TruncDate('timestamp')) \
-        .values('date').distinct()
-
-    dates = sorted([d['date'].strftime("%Y-%m-%d") for d in dates])
-
-    json_str = json.dumps(dates)
+    json_str = TextCache.objects.get(key='view_dates').text
     return HttpResponse(json_str, content_type='application/json')
 
 
@@ -126,11 +118,7 @@ def path(request, ltlat, ltlong, rblat, rblong, date):
     return HttpResponse(json_str, content_type='application/json')
 
 def path_dates(request):
-    dates = BikePath.objects.values('date').distinct()
-
-    dates = sorted([d['date'].strftime("%Y-%m-%d") for d in dates])
-
-    json_str = json.dumps(dates)
+    json_str = TextCache.objects.get(key='path_dates').text
     return HttpResponse(json_str, content_type='application/json')
 
 
