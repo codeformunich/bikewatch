@@ -14,3 +14,16 @@ h1 a {
 	height: 100%;
 	background: blue;
 }
+
+.btn-info {
+	margin-top: 10px;
+}
+
+#slider {
+	background: #81bfde;
+}
+
+.slider-horizontal {
+	height: 80px;
+	z-index: 100000;
+}
