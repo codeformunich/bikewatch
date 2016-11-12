@@ -1,6 +1,8 @@
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import ArrayField
 
+from datetime import date
+
 class Bikes(models.Model):
     class Meta:
         unique_together = (('timestamp', 'place_uid', 'place_coords',
@@ -22,3 +24,11 @@ class Bikes(models.Model):
         models.CharField(max_length=10),
         null=True,
     )
+
+    @staticmethod
+    def get_for_day(year, month, day):
+        return Bikes.objects.filter(timestamp__date=date(year, month, day))
+
+    @staticmethod
+    def get_for_day(date):
+        return Bikes.objects.filter(timestamp__date=date)

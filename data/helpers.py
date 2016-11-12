@@ -1,7 +1,7 @@
 from .models import Bikes
 
 def get_bike_ids_for_day(date):
-    entries = Bikes.objects.filter(timestamp__date=date)
+    entries = Bikes.get_for_day(date)
 
     ids = set()
     for entry in entries:
