@@ -4,8 +4,13 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 
+from django.db.models import Count
+from django.contrib.gis.db.models.functions import Distance
+from django.db.models import Avg, Max, Min
+from django.contrib.gis.geos import Point
+from django.contrib.gis.measure import D
+
 from data.models import Bikes
-from data.helpers import get_path
 from evaluation.models import BikePath
 
 import json
@@ -34,43 +39,19 @@ def get_app_controlbar(request, appName):
 
 
 def view(request, ltlat, ltlong, rblat, rblong, date, hour):
-#    def deg_to_rad(deg):
-#        return deg * 2*math.pi / 360
-#
-#    # Compute degree for 100 m
-#    MUNICH_TL_LONG = 11.4
-#    MUNICH_TL_LAT = 48.25
-#
-#    MUNICH_BR_LONG = 11.81
-#    MUNICH_BR_LAT = 48.03
-#
-#    #MUNICH_LONG = deg_to_rad(11.5820)
-#    #MUNICH_LAT = deg_to_rad(48.1351)
-#    GRID_LONG = 1 / MUNICH_LONG * math.cos(MUNICH_LAT) * 0.1
-#    GRID_LAT = 1 / MUNICH_LAT * 0.1
-#
-#
+    # Compute degree for 100 m
+    MUNICH_LONG = 11.5820
+    MUNICH_LAT = 48.1351
+    GRID_LONG = 1 / MUNICH_LONG * abs(math.cos(MUNICH_LAT)) * 0.1
+    GRID_LAT = 1 / MUNICH_LAT * 0.1
+
+    # Round position to a raster with the GRID_* accuracy
+    def round_position(lng, lat):
+        (lng - (lng % GRID_LONG), lat - (lat % GRID_LAT))
+
+
     date = datetime.datetime.strptime(date, "%Y-%m-%d")
-#    hour = int(hour)
-#
-#    # Example: http://localhost:8000/api/evaluation/48/11.55/49/12/2016-07-05/15
-#    # Fetch all data for the given time
-#    data = Bikes.get_for_day(date).filter(timestamp__hour=hour, timestamp__minute=0)
-#    # Send all data
-#    #data = all_data.filter(place_coords__within=
-#    #    Polygon.from_bbox((ltlong, ltlat, rblong, rblat)))
-#
-#    # Accumulate points by coordinates in the GRID_* raster
-#    # points is a dictionary from points (long, lat) → count
-#    points = {}
-#    for b in data:
-#        if b.bikes > 0:
-#            #pos = round_position(b.place_coords[0], b.place_coords[1])
-#            pos = (b.place_coords[0] - (b.place_coords[0] % GRID_LONG), b.place_coords[1] - (b.place_coords[1] % GRID_LAT))
-#            if pos in points.keys():
-#                points[pos] += b.bikes
-#            else:
-#                points[pos] = b.bikes
+    hour = int(hour)
 
     points = Bikes.get_for_day(date).all()
 
@@ -143,3 +124,29 @@ def follow(request, ltlat, ltlong, rblat, rblong, bike_uid):
 
     json_str = json.dumps(result)
     return HttpResponse(json_str, content_type='application/json')
+
+def probability(request,ltlat, ltlong, rblat, rblong ,poslat, poslong, dayindex, hourindex):
+    
+    #dayindex starts with 1 for sunday, see https://docs.djangoproject.com/en/dev/ref/models/querysets/#week-day
+    
+    loc = Point(float(poslong),float(poslat),srid=4326 ) #fixme: check that srid=4326 is right
+    print(loc)
+    result = Bikes.objects.filter(timestamp__week_day=dayindex).filter(timestamp__hour=hourindex).filter(bikes__gt=0)\
+        .extra({'date_found' : "date(timestamp)"}).values('date_found')\
+        .annotate(min_distance=Min(Distance('place_coords', loc))).order_by('min_distance')
+    result_count = len(result)
+    
+    
+    result_ranges = {}
+    percentages = [0.25,0.50,0.75,0.90]
+    p_ind = 0
+    for i in range(result_count): # this finds the minimum distance for which the percentages from the list are fullfiled for bike availability
+        percentage_sum = (i+1)/result_count
+        while p_ind < len(percentages):
+            if percentages[p_ind] <= percentage_sum:
+                result_ranges[str(percentages[p_ind])]=result[i]["min_distance"]
+                p_ind+=1
+            else:
+                break
+    return HttpResponse(json.dumps(result_ranges), content_type='application/json')
+    
