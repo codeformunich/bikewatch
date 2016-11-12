@@ -4,6 +4,13 @@ function appPath() {
 
     //this.errorFunction = app.prototype.errorFunction;
 
+    this.evaluateParams = function() {
+        var form = document.forms.appViewForm;
+        var date = form.date.value;
+        this.mapManager.customParams = encodeURI(date) + '/';
+        console.log(this.mapManager.customParams);
+    };
+
     this.onNavbarLoaded = function() { /* has to be defined beofre runapp */
         this.mapManager.createMap(this.mapDiv,pathLayer);
     }
