@@ -1,13 +1,14 @@
+from django.contrib.gis.geos import Polygon
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.contrib.gis.geos import Polygon
+from django.template import loader
 
 from data.models import Bikes
-#from evaluation.models import BikePath
+from evaluation.models import BikePath
 
+import datetime
 import json
 import os.path
-from django.template import loader
 
 
 def index(request):
@@ -47,17 +48,15 @@ def update_map(request, ltlat, ltlong, rblat, rblong, date, hour):
     json_str = json.dumps(result)
     return HttpResponse(json_str, content_type='application/json')
 
-def path(request, ltlat, ltlong, rblat, rblong, date, hour):
-    data = Bikes.objects.filter(place_coords__within=Polygon
-        .from_bbox((ltlong, ltlat, rblong, rblat)))[:100]
-    #data = Bikes.objects.all()[:10]
+def path(request, ltlat, ltlong, rblat, rblong, year, month, day):
+    data = BikePath.objects.filter(date=datetime.date(int(year), int(month),
+                                                      int(day)))
 
     result = []
     for b in data:
         result.append({
-            "long": b.place_coords[0],
-            "lat": b.place_coords[1],
-            "count": b.bikes,
+            "id": b.bike_id,
+            "path": [(p.get_x(), p.get_y()) for p in b.path],
         })
 
     json_str = json.dumps(result)

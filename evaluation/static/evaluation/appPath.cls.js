@@ -9,7 +9,7 @@ function appPath() {
     }
 
     this.runApp = function (mapDiv,controlDiv) {
-        this.mapManager.customParams = '2016.10.10/16';
+        this.mapManager.customParams = '2016/10/10/';
         app.prototype.runApp.call(this,mapDiv,controlDiv);
     }
 

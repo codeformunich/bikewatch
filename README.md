@@ -1,25 +1,32 @@
 Install
 =======
 
-pyvenv .
-. ./bin/activate
+    pyvenv .
+    . ./bin/activate
 
 
-git clone git@gitlab.lrz.de:ga73vuy/hackatum.git
+    git clone git@gitlab.lrz.de:ga73vuy/hackatum.git
 
-cd hackatum
+    cd hackatum
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
-python manage.py migrate
-python manage.py bower install
-python manage.py runserver
+    python manage.py migrate
+    python manage.py bower install
+    python manage.py runserver
 
 Database
 ========
 
-PostgreSQL 9.2+
-PostGIS
+ * PostgreSQL 9.2+
+ * PostGIS
 
-psql <db name>
-CREATE EXTENSION postgis;
+    psql <db name>
+    CREATE EXTENSION postgis;
+
+Celery
+======
+
+Run Celery worker:
+
+    celery -A mvgrad worker -c 2 --loglevel=info
