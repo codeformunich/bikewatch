@@ -39,9 +39,6 @@
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav" id="nav_container">
-						<li class="active"><a href="#">App1</a></li>
-						<li><a href="#about">App2</a></li>
-						<li><a href="#contact">App3</a></li>
 					</ul>
 				</div><!--/.nav-collapse -->
 			</div>
@@ -59,8 +56,7 @@
             window.onload = function() {
                 defaultHandler = null;
                 for (C=0; C < appConfig.length; C++) {
-                    $('#nav_container').append('<button onClick="mapHandler.stopApp(); mapHandler = new ' + appConfig[C][1].name 
-                            + '(); mapHandler.runApp(\'map_container\',\'control_container\');">' + appConfig[C][0] + "</button>");
+					$('#nav_container').append('<li class="active"><a id="map_handler" href="#" onclick="mapHandler.stopApp(); mapHandler = new ' + appConfig[C][1].name + '(); mapHandler.runApp(\'map_container\',\'control_container\');return false;">'+ appConfig[C][0] +'</a></li>');
                     if(appConfig[C][0] == defaultApp) {
                         defaultHandler = appConfig[C][1];
                     }
