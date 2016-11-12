@@ -54,6 +54,10 @@ function heatmapManager() {
         this.heatmapLayer.setData(data)
     }
     
+    this.removeMap = function() {
+        this.map.remove()
+    }
+    
         
    
 } 
