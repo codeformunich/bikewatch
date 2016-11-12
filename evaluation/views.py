@@ -72,7 +72,7 @@ def view(request, ltlat, ltlong, rblat, rblong, date, hour):
 #            else:
 #                points[pos] = b.bikes
 
-    points = Bikes.get_for_day(date).all()
+    points = Bikes.get_for_day(date).filter(timestamp__hour=int(hour)).all()
 
     result = []
     for p in points:
