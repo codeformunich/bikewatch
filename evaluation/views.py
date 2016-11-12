@@ -1,4 +1,5 @@
 from django.contrib.gis.geos import Polygon
+from django.db.models.functions.datetime import TruncDate
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -31,7 +32,7 @@ def get_app_controlbar(request, appName):
     return render(request,template_name,context)
 
 
-def update_map(request, ltlat, ltlong, rblat, rblong, date, hour):
+def view(request, ltlat, ltlong, rblat, rblong, date, hour):
     # Compute degree for 100 m
     MUNICH_LONG = 11.5820
     MUNICH_LAT = 48.1351
@@ -80,6 +81,17 @@ def update_map(request, ltlat, ltlong, rblat, rblong, date, hour):
         "data": result
     })
     return HttpResponse(json_str, content_type='application/json')
+
+
+def view_dates(request):
+    dates = Bikes.objects.annotate(date=TruncDate('timestamp')) \
+        .values('date').distinct()
+
+    dates = sorted([d['date'].strftime("%Y-%m-%d") for d in dates])
+
+    json_str = json.dumps(dates)
+    return HttpResponse(json_str, content_type='application/json')
+
 
 def path(request, ltlat, ltlong, rblat, rblong, year, month, day):
     data = BikePath.objects.filter(date=datetime.date(int(year), int(month),

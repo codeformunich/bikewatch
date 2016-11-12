@@ -13,12 +13,18 @@ urlpatterns = [
         views.get_app_controlbar,
         name='get_app_controlbar'),
 
-    url(r"""^api/evaluation/(?P<ltlat>[0-9.]+)/(?P<ltlong>[0-9.]+)/"""
+    # evaluation
+    url(r"""^api/appView/(?P<ltlat>[0-9.]+)/(?P<ltlong>[0-9.]+)/"""
          """(?P<rblat>[0-9.]+)/(?P<rblong>[0-9.]+)/"""
          """(?P<date>\d\d\d\d-\d\d-\d\d)/(?P<hour>[0-9.:]+)$""",
-        views.update_map,
-        name='update_map'),
+        views.view,
+        name='view'),
 
+    url(r"""^api/appView/available_dates/$""",
+        views.view_dates,
+        name='view_dates'),
+
+    # appPath
     url(r"""^api/appPath/(?P<ltlat>[0-9.]+)/(?P<ltlong>[0-9.]+)/"""
          """(?P<rblat>[0-9.]+)/(?P<rblong>[0-9.]+)/(?P<year>[0-9]+)/"""
          """(?P<month>[0-9]+)/(?P<day>[0-9]+)/$""",

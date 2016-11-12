@@ -3,7 +3,7 @@
  */
 
 function appView() {
-    this.mapManager = new heatmapManager("evaluation");
+    this.mapManager = new heatmapManager("appView");
     this.appName = "appView";
     
     //this.errorFunction = app.prototype.errorFunction;
