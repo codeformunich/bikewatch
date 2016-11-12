@@ -1,3 +1,27 @@
+<script>
+	$('#timepicker').slider({ formatter: function(value) { return value + ' Uhr';} });
+</script>
 <div>
-    Test
+	<form>
+	    <div class="form-group">
+	    	<label for="datepicker">Date</label>
+        	<input type="text" id="datepicker" name="date" value="2016-11-12" class="form-control">
+	    </div>
+	    <div class="form-group">
+	    	<label for="timepicker">Time</label>
+        	<input type="text" id="timepicker" data-provide="slider" name="time" class="form-control" data-slider-id='ex1Slider' data-slider-min="0" data-slider-max="24" data-slider-step="1" data-slider-value="14">
+	    </div>
+    </form>
+
+    <script type="text/javascript">
+    $("#datepicker").datetimepicker({
+        format: 'YYYY-MM-DD',
+        enabledDates: [
+        	// TODO data-driven
+        	new Date("2016-11-09"),
+        	new Date("2016-11-10"),
+        	new Date("2016-11-11")
+        ]
+	});
+	</script>
 </div>

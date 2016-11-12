@@ -4,7 +4,7 @@ function app() {
 
 app.prototype = {
     
-    onNovbarLoaded: function() {
+    onNavbarLoaded: function() {
         
     },
     errorFunction: function (msg) {

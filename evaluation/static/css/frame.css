@@ -15,15 +15,14 @@ h1 a {
 	background: blue;
 }
 
-.btn-info {
-	margin-top: 10px;
+#control_container {
+	padding-top: 10px;
 }
 
 #slider {
 	background: #81bfde;
 }
 
-.slider-horizontal {
-	height: 80px;
-	z-index: 100000;
+.slider.slider-horizontal{
+	width: 95%;
 }
