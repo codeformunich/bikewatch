@@ -26,9 +26,5 @@ class Bikes(models.Model):
     )
 
     @staticmethod
-    def get_for_day(year, month, day):
-        return Bikes.objects.filter(timestamp__date=date(year, month, day))
-
-    @staticmethod
     def get_for_day(date):
         return Bikes.objects.filter(timestamp__date=date)
