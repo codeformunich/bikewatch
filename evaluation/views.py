@@ -82,3 +82,9 @@ def follow(request, ltlat, ltlong, rblat, rblong, bike_uid):
 
     json_str = json.dumps(result)
     return HttpResponse(json_str, content_type='application/json')
+
+def stats(request, statistic):
+    result = { "stat": statistic }
+
+    json_str = json.dumps(result)
+    return HttpResponse(json_str, content_type='application/json')

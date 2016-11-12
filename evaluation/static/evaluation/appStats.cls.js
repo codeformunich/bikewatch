@@ -24,13 +24,13 @@ function appStats() {
 
         console.log("Show Stats: " + currentItem.innerText);
 
-        $.get('/api/stats/' + currentItem.attr('data-src'), function(data) {
+        $.get('/api/appStats/' + currentItem.attr('data-src'), function(data) {
             displayContent(data);
         }).fail(function(data) {
             //self.errorFunction("Error loading navigation bar. Please reload the page")
         });
 
-        showLoader(this.mapDiv);
+        showLoader(self.mapDiv);
     }
 
 
@@ -39,7 +39,7 @@ function appStats() {
      * @param data an array of graph.js data
      */
     function displayContent(data){
-        var content = $('#' + this.mapDiv);
+        var content = $('#' + self.mapDiv);
         content.innerHTML = '';
 
         while(data.length >= 2){

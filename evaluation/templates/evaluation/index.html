@@ -110,9 +110,8 @@
 
 				var loadOverlay = $('<div>').addClass('loadOverlay');
                 window.showLoader = function(element){
-					if(element instanceof String)
-						element = $('#' + element);
-					element.append(loadOverlay);
+					var jqEl = (typeof element === "object") ? $(element) : $('#' + element);
+					jqEl.append(loadOverlay);
 					loadOverlay.fadeIn();
 					console.log("showLoader on " + element);
 				}
