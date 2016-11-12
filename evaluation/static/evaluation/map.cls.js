@@ -4,7 +4,7 @@
 function heatmapManager(appName) {
     
     //this definition is taken from the heatmap-tutorial
-   
+    
     this.baseLayerMaxZoom = 18;
     this.standardZoom = 13;
     
@@ -40,7 +40,7 @@ function heatmapManager(appName) {
         });
         
         this.submapLayer = new submapClass();
-        this.submapLayer.init(this.map);
+        this.submapLayer.init(this.map, {default_zoom: this.standardZoom, center_lattitude: this.center_lat});
         this.refreshMap();
     };
     
@@ -61,7 +61,7 @@ function heatmapManager(appName) {
                 self.callbackError("Got invalid data from server")
             }*/
             
-            self.submapLayer.setData(data);
+            self.submapLayer.setData([data[0]]); //FIXME: remove löater
            
         })
         .fail(function() {
