@@ -61,7 +61,7 @@ function heatmapManager(appName) {
                 self.callbackError("Got invalid data from server")
             }*/
             console.log("data is: " + data);
-            self.submapLayer.setData(data.data);
+            self.submapLayer.setData(data);
            
         })
         .fail(function() {

@@ -15,6 +15,8 @@ function pathLayer() {
             lines.push(tmp);
         }
 
+        console.log(lines);
+
         var myLayer = L.geoJSON(lines).addTo(this.map);
     }
 }

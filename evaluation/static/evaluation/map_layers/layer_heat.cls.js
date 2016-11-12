@@ -36,7 +36,7 @@ function heatMapLayer() {
     }
     
     this.setData = function(data) {
-        console.log(data);
-        this.overlay.setData({data: data});
+        console.log(data.data);
+        this.overlay.setData({data: data.data});
     }
 }
