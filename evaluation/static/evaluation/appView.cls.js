@@ -5,6 +5,7 @@
 function appView() {
     this.mapManager = new heatmapManager("appView");
     this.appName = "appView";
+    this.restEndpoint = "/api/" + this.appName;
     
     //this.errorFunction = app.prototype.errorFunction;
     
@@ -30,9 +31,23 @@ function appView() {
             thiz.refresh();
         });
 
-        // init map
-        this.evaluateParams();
-        this.mapManager.createMap(this.mapDiv, heatMapLayer);
+        $.get(this.restEndpoint + "/available_dates", function(data) {
+            if(!$.isArray(data)) {
+                alert("Could not load available dates: Expected array.");
+                return;
+            }
+
+            // init date picker and time slider
+            $("#datepicker").datetimepicker({
+                format: 'YYYY-MM-DD',
+                enabledDates: data.map(function(str){ return new DateTime(str); })
+            });
+            $('#timepicker').slider({ formatter: function(value) { return value + ' Uhr';} });
+
+            // init map
+            this.evaluateParams();
+            this.mapManager.createMap(this.mapDiv, heatMapLayer);
+        }).fail(function(){ alert("Could not load available dates!"); });
     }
     
     this.runApp = function (mapDiv,controlDiv) {

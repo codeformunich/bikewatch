@@ -1,6 +1,3 @@
-<script>
-	$('#timepicker').slider({ formatter: function(value) { return value + ' Uhr';} });
-</script>
 <div>
 	<form id="appViewForm" action="#">
 	    <div class="form-group">
@@ -15,16 +12,4 @@
 	    	<input type="submit" value="Refresh" class="btn btn-success">
 	    </div>
     </form>
-
-    <script type="text/javascript">
-    $("#datepicker").datetimepicker({
-        format: 'YYYY-MM-DD',
-        enabledDates: [
-        	// TODO data-driven
-        	new Date("2016-11-09"),
-        	new Date("2016-11-10"),
-        	new Date("2016-11-11")
-        ]
-	});
-	</script>
 </div>
