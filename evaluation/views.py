@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.template import loader
 
 from data.models import Bikes
+from data.helpers import get_path
 from evaluation.models import BikePath
 
 import json
@@ -110,9 +111,9 @@ def view_dates(request):
     return HttpResponse(json_str, content_type='application/json')
 
 
-def path(request, ltlat, ltlong, rblat, rblong, year, month, day):
-    data = BikePath.objects.filter(date=datetime.date(int(year), int(month),
-                                                      int(day)))
+def path(request, ltlat, ltlong, rblat, rblong, date):
+    date = datetime.datetime.strptime(date, "%Y-%m-%d")
+    data = BikePath.objects.filter(date=date)
 
     result = []
     for b in data:
@@ -120,6 +121,25 @@ def path(request, ltlat, ltlong, rblat, rblong, year, month, day):
             "id": b.bike_id,
             "path": [(p.get_x(), p.get_y()) for p in b.path],
         })
+
+    json_str = json.dumps(result)
+    return HttpResponse(json_str, content_type='application/json')
+
+def path_dates(request):
+    dates = BikePath.objects.values('date').distinct()
+
+    dates = sorted([d['date'].strftime("%Y-%m-%d") for d in dates])
+
+    json_str = json.dumps(dates)
+    return HttpResponse(json_str, content_type='application/json')
+
+
+def follow(request, ltlat, ltlong, rblat, rblong, bike_uid):
+    data = get_path(bike_uid)
+
+    result = []
+    for p in data:
+        result.append((p.get_x(), p.get_y()))
 
     json_str = json.dumps(result)
     return HttpResponse(json_str, content_type='application/json')

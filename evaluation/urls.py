@@ -26,8 +26,19 @@ urlpatterns = [
 
     # appPath
     url(r"""^api/appPath/(?P<ltlat>[0-9.]+)/(?P<ltlong>[0-9.]+)/"""
-         """(?P<rblat>[0-9.]+)/(?P<rblong>[0-9.]+)/(?P<year>[0-9]+)/"""
-         """(?P<month>[0-9]+)/(?P<day>[0-9]+)/$""",
+         """(?P<rblat>[0-9.]+)/(?P<rblong>[0-9.]+)/"""
+         """(?P<date>\d\d\d\d-\d\d-\d\d)/$""",
         views.path,
         name='path'),
+
+    url(r"""^api/appPath/available_dates/$""",
+        views.path_dates,
+        name='path_dates'),
+
+    # appFollow
+    url(r"""^api/appFollow/(?P<ltlat>[0-9.]+)/(?P<ltlong>[0-9.]+)/"""
+         """(?P<rblat>[0-9.]+)/(?P<rblong>[0-9.]+)/"""
+         """(?P<bike_uid>\w+)/$""",
+        views.follow,
+        name='follow'),
 ]
