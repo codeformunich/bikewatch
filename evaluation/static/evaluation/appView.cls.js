@@ -40,13 +40,13 @@ function appView() {
             // init date picker and time slider
             $("#datepicker").datetimepicker({
                 format: 'YYYY-MM-DD',
-                enabledDates: data.map(function(str){ return new DateTime(str); })
+                enabledDates: data.map(function(str){ return new Date(str); })
             });
             $('#timepicker').slider({ formatter: function(value) { return value + ' Uhr';} });
 
             // init map
-            this.evaluateParams();
-            this.mapManager.createMap(this.mapDiv, heatMapLayer);
+            thiz.evaluateParams();
+            thiz.mapManager.createMap(thiz.mapDiv, heatMapLayer);
         }).fail(function(){ alert("Could not load available dates!"); });
     }
     
