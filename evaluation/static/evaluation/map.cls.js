@@ -41,7 +41,7 @@ function heatmapManager(appName) {
         
         this.submapLayer = new submapClass();
         this.submapLayer.init(this.map, {default_zoom: this.standardZoom, center_lattitude: this.center_lat});
-        this.refreshMap();
+        return this.refreshMap();
     };
     
    this.refreshMap = function () {
@@ -68,6 +68,8 @@ function heatmapManager(appName) {
                 self.callbackError("Could not get data from server");
             }
         );
+
+        return jqxhr; // return jQuery promise
     }
     
     this.removeMap = function() {

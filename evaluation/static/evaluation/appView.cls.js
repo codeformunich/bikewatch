@@ -7,8 +7,13 @@ function appView() {
     this.appName = "appView";
     this.restEndpoint = "/api/" + this.appName;
     
+    var thiz = this;
     //this.errorFunction = app.prototype.errorFunction;
     
+    this.setStatus = function(text) {
+        $("#appViewStatus").text(text);
+    }
+
     this.evaluateParams = function() {
         var form = document.forms.appViewForm;
         var date = form.date.value;
@@ -19,17 +24,22 @@ function appView() {
 
     this.refresh = function() {
         this.evaluateParams();
-        this.mapManager.refreshMap();
+        this.setStatus("Loading data ...");
+        this.mapManager.refreshMap()
+            .done(function(){ thiz.setStatus("Done!"); })
+            .fail(function(){ thiz.setStatus("Error!"); });
     };
 
     this.onNavbarLoaded = function() { /* has to be defined beofre runapp */
-        var thiz = this;
-
         // bind form event handler
         $(document.forms.appViewForm).bind('submit', function(e) {
             e.preventDefault();
             thiz.refresh();
         });
+
+        // hide until loading is complete
+        $(document.forms.appViewForm).hide();
+        this.setStatus("Loading data ...");
 
         $.get(this.restEndpoint + "/available_dates", function(data) {
             if(!$.isArray(data)) {
@@ -42,11 +52,15 @@ function appView() {
                 format: 'YYYY-MM-DD',
                 enabledDates: data.map(function(str){ return new Date(str); })
             });
-            $('#timepicker').slider({ formatter: function(value) { return value + ' Uhr';} });
+            $('#timepicker').slider({ formatter: function(value) { return value + " o'clock";} });
 
+            $(document.forms.appViewForm).show();
+            
             // init map
             thiz.evaluateParams();
-            thiz.mapManager.createMap(thiz.mapDiv, heatMapLayer);
+            thiz.mapManager.createMap(thiz.mapDiv, heatMapLayer)
+                .done(function(){ thiz.setStatus("Done!"); })
+                .fail(function(){ thiz.setStatus("Error!"); });
         }).fail(function(){ alert("Could not load available dates!"); });
     }
     
