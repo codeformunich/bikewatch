@@ -8,7 +8,6 @@ function appStats() {
     var self = this;
     var menuElements;
     var currentItem;
-    var loadOverlay = $('<div>').addClass('loadOverlay');
 
     this.onNavbarLoaded = function() {
         console.log('Navbar loaded');
@@ -31,7 +30,7 @@ function appStats() {
             //self.errorFunction("Error loading navigation bar. Please reload the page")
         });
 
-        showLoader();
+        showLoader(this.mapDiv);
     }
 
 
@@ -78,16 +77,10 @@ function appStats() {
     }
 
 
-    function showLoader(){
-        $('#' + self.mapDiv).append(loadOverlay);
-        console.log("showLoader on " + self.mapDiv);
-    }
-
-
     this.runApp = function (mapDiv,controlDiv) {
         app.prototype.runApp.call(this, mapDiv, controlDiv);
         console.log(this.mapDiv);
-        showLoader();
+        showLoader(this.mapDiv);
     };
 
     // no map here
