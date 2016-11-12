@@ -1,14 +1,15 @@
 /**
  * Created by benjamin on 12.11.16.
  */
+
 function appView() {
     this.mapManager = new heatmapManager("evaluation");
     this.appName = "appView";
     
-    this.errorFunction = app.prototype.errorFunction
+    //this.errorFunction = app.prototype.errorFunction;
     
-    this.onNavbarLoaded = function() {
-        this.mapManager.createMap(this.mapDiv);
+    this.onNavbarLoaded = function() { /* has to be defined beofre runapp */
+        this.mapManager.createMap(this.mapDiv,heatMapLayer);
     }
     
     this.runApp = function (mapDiv,controlDiv) {
@@ -16,5 +17,6 @@ function appView() {
         app.prototype.runApp.call(this,mapDiv,controlDiv);
     }
     
-    this.stopApp = app.prototype.stopApp
+    //this.stopApp = app.prototype.stopApp
 }
+appView.prototype = app.prototype;

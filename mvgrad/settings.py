@@ -139,5 +139,6 @@ BOWER_INSTALLED_APPS = (
 'leaflet',
 'jquery',
 'bootstrap',
-'eonasdan-bootstrap-datetimepicker'
+'eonasdan-bootstrap-datetimepicker',
+'seiyria-bootstrap-slider'
 )
