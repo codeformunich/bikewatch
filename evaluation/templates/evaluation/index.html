@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Heatmap Bikes</title>
@@ -9,7 +10,7 @@
 		<script src="{% static 'moment/min/moment.min.js' %}"></script>
         <script src="{% static 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
 		<script src="{% static 'leaflet/dist/leaflet.js' %}"></script>
-    	<script src="{% static '/heatmap.js-amd/build/heatmap.min.js' %}"></script>
+    	<script src="{% static 'heatmap.js-amd/build/heatmap.min.js' %}"></script>
 		<script src="{% static 'heatmap.js-amd/plugins/leaflet-heatmap/leaflet-heatmap.js' %}"></script>
 		<script src="{% static 'seiyria-bootstrap-slider/dist/bootstrap-slider.min.js' %}"></script>
         <script src="{% static 'evaluation/map.cls.js' %}"></script>
@@ -29,10 +30,12 @@
               }
         </style>
         <script>
-            var appConfig = [["Avaliability by Time",appView],
-                             ["Routes of Bikes",appPath],
-							 ["Extrapolation", appExtrapolation]]
-			defaultApp = "Avaliability by Time"
+            var appConfig = [
+                ["Avaliability by Time", appView],
+                ["Routes of Bikes", appPath],
+                ["Extrapolation", appExtrapolation]
+            ];
+            var defaultApp = 0;
         </script>
         
        
@@ -62,20 +65,44 @@
 		</div>
 		
         <script>
-            window.onload = function() {
-                defaultHandler = null;
-                for (C=0; C < appConfig.length; C++) {
-					$('#nav_container').append('<li><a id="map_handler" href="#" onclick="mapHandler.stopApp(); mapHandler = new ' + appConfig[C][1].name + '(); mapHandler.runApp(\'map_container\',\'control_container\');return false;">'+ appConfig[C][0] +'</a></li>');
-                    if(appConfig[C][0] == defaultApp) {
-                        defaultHandler = appConfig[C][1];
-                    }
+            $(function() {
+                window.activeHandler = null;
+
+                // build nav
+                for(var i=0; i<appConfig.length; i++) {
+                    var cfg = appConfig[i];
+
+                    var li = $("<li>");
+
+                    var a = $("<a>");
+                    a.attr("href", "#");
+                    a.text(cfg[0]);
+                    a.data("cfg", cfg);
+                    a.click(function(e) {
+                        e.preventDefault();
+
+                        $("#nav_container li").removeClass("active");
+                        $(this).parent().addClass("active");
+
+                        if(window.activeHandler)
+                            window.activeHandler.stopApp();
+
+                        var cfg = $(this).data("cfg");
+                        console.log(cfg);
+                        window.activeHandler = new cfg[1](); // instantiate the concrete app class
+                        window.activeHandler.runApp('map_container', 'control_container');
+                    });
+                    a.appendTo(li);
+
+                    $("#nav_container").append(li);
+
+                    if(i == defaultApp)
+                        //a.click();
+                    ;
                 }
                 
-                if (defaultHandler != null) {
-                    mapHandler = new defaultHandler();
-                    mapHandler.runApp("map_container", "control_container");
-                };
-            };
+
+            });
         </script>
     </body>
 

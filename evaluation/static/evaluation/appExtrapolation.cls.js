@@ -41,4 +41,4 @@ function appExtrapolation() {
     
     //this.stopApp = app.prototype.stopApp
 }
-appView.prototype = app.prototype;
+appExtrapolation.prototype = app.prototype;

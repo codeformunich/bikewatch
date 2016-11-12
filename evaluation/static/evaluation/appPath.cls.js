@@ -15,4 +15,4 @@ function appPath() {
 
     //this.stopApp = app.prototype.stopApp
 }
-appView.prototype = app.prototype;
+appPath.prototype = app.prototype;
