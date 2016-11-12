@@ -5,8 +5,16 @@ function pathLayer() {
     }
 
     this.setData = function(data) {
-        console.log(data);
-        //overlay = this.map.addLayer(this.overlay);
-        //overlay.setData({data: data});
+        lines = [];
+
+        for(d in data) {
+            tmp = {"type": "LineString", "coordinates": []};
+            for(p in data[d].path) {
+                tmp["coordinates"].push(data[d].path[p]);
+            }
+            lines.push(tmp);
+        }
+
+        var myLayer = L.geoJSON(lines).addTo(this.map);
     }
 }
