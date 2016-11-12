@@ -30,4 +30,8 @@ urlpatterns = [
          """(?P<month>[0-9]+)/(?P<day>[0-9]+)/$""",
         views.path,
         name='path'),
+
+    url(r"""^api/appPath/available_dates/$""",
+        views.path_dates,
+        name='path_dates'),
 ]

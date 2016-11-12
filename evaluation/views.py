@@ -106,3 +106,11 @@ def path(request, ltlat, ltlong, rblat, rblong, year, month, day):
 
     json_str = json.dumps(result)
     return HttpResponse(json_str, content_type='application/json')
+
+def path_dates(request):
+    dates = BikePath.objects.values('date').distinct()
+
+    dates = sorted([d['date'].strftime("%Y-%m-%d") for d in dates])
+
+    json_str = json.dumps(dates)
+    return HttpResponse(json_str, content_type='application/json')
