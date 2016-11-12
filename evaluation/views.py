@@ -93,9 +93,9 @@ def view_dates(request):
     return HttpResponse(json_str, content_type='application/json')
 
 
-def path(request, ltlat, ltlong, rblat, rblong, year, month, day):
-    data = BikePath.objects.filter(date=datetime.date(int(year), int(month),
-                                                      int(day)))
+def path(request, ltlat, ltlong, rblat, rblong, date):
+    date = datetime.datetime.strptime(date, "%Y-%m-%d")
+    data = BikePath.objects.filter(date=date)
 
     result = []
     for b in data:
