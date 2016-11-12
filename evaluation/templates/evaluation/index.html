@@ -10,22 +10,39 @@
         <style>
               body, html { margin:0; padding:0; height:100%;}
               #map_container { height:90%; }
+              #control_container { height:5%; }
+              #nav_container { height:5%; }
               .leaflet-container {
                 background: rgba(0,0,0,.8) !important;
               }
         </style>
+        <script>
+            var appConfig = [["Verfügbarkeit nach Zeitpunkt",availabilityApp]]
+            defaultApp = "Verfügbarkeit nach Zeitpunkt"
+        </script>
         
        
     </head>
     <body>
-        <div>Interface here!</div>
+        <div id="nav_container"></div>
         <div id="map_container"></div>
         <script>
             window.onload = function() {
-                mapHandler = new heatmapManager();
-                mapHandler.createMap("map_container");
+                defaultHandler = null;
+                for (app in appConfig) {
+                    $('#nav_container').append('<button onClick="manager = new ' + app[1] 
+                            + '; manager.runApp(\\"map_container\\",\\"control_container\\");> ' + app[0] + "</button>");
+                    if(app[0] == defaultApp) {
+                        defaultHandler = app[1]
+                    }
+                }
+                
+                if (defaultHandler != null)
+                    mapHandler = new defaultHandler();
+                    mapHandler.runApp("map_container","control_container");
             };
         </script>
+        <div id="control_container"></div>
     </body>
 
 
