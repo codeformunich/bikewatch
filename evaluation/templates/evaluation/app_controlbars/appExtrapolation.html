@@ -1,15 +1,8 @@
-<script>
-	$('#weekdayslider').slider({
-	ticks: [0,1,2,3,4,5,6],
-	ticks_labels: ["Mo","Tu","We","Th","Fr","Sa","Su"]
-	});
-	$('#extrapolationtimepicker').slider({ formatter: function(value) { return value + ' o\'clock';} });
-</script>
 <div>
 	<form id="appExtrapolationForm" action="#">
 	    <div class="form-group">
 			<label for="weekdayslider">Weekday</label>
-			<input type="text" id="weekdayslider" data-provide="slider" name="weekday" class="form-control" data-slider-id='weekdayslider' data-slider-ticks="[0,1,2,3,4,5,6]" data-slider-ticks-labels="["Mo","Tu","We","Th","Fr","Sa","Su"]" data-slider-orientation="vertical">
+			<input type="text" id="weekdayslider" data-provide="slider" name="weekday" class="form-control" data-slider-id='weekdayslider' data-slider-ticks="[0,1,2,3,4,5,6]" data-slider-ticks-labels="['Mo','Tu','We','Th','Fr','Sa','Su']" data-slider-orientation="vertical">
 	    </div>
 	    <div class="form-group">
 	    	<label for="extrapolationtimepicker">Time</label>
