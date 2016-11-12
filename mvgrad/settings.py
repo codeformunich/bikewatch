@@ -138,5 +138,6 @@ BOWER_INSTALLED_APPS = (
 'heatmap.js.bower#^2.0.5',
 'leaflet',
 'jquery',
-'bootstrap'
+'bootstrap',
+'seiyria-bootstrap-slider'
 )
