@@ -42,7 +42,7 @@ function appView() {
                 format: 'YYYY-MM-DD',
                 enabledDates: data.map(function(str){ return new Date(str); })
             });
-            $('#timepicker').slider({ formatter: function(value) { return value + ' Uhr';} });
+            $('#timepicker').slider({ formatter: function(value) { return value + ' o\'clock';} });
 
             // init map
             thiz.evaluateParams();

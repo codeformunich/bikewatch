@@ -12,6 +12,7 @@ Session.vim
 *.log
 *.pot
 
+/components
 /db.sqlite3
 
 /ENV
