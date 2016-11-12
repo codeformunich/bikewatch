@@ -146,5 +146,5 @@ BOWER_INSTALLED_APPS = (
 'bootstrap',
 'eonasdan-bootstrap-datetimepicker',
 'seiyria-bootstrap-slider',
-'charts.js'
+'chart.js'
 )
