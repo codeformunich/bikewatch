@@ -1,7 +1,7 @@
 /**
  * Created by benjamin on 11.11.16.
  */
-function heatmapManager() {
+function heatmapManager(appName) {
     
     //this definition is taken from the heatmap-tutorial
     this.cfg = {
@@ -31,6 +31,14 @@ function heatmapManager() {
     
     this.map = null;
     this.heatmapLayer = null;
+    
+    this.ajaxbaseurl = "/api/evaluation";
+    
+    this.appName = appName;
+    this.customParams = null;
+    this.callbackError = function(msg) {
+        alert("Error: " + msg)
+    }
         
         
     
@@ -48,10 +56,37 @@ function heatmapManager() {
           zoom: this.standardZoom,
           layers: [baseLayer, this.heatmapLayer]
         });
+        
+        this.refreshMap()
+    };
+    
+   this.refreshMap = function () {
+        bounds = this.map.getBounds();
+        url = this.ajaxbaseurl + "/" + this.appName + "/" + bounds.getNorthWest().lat + "/" + bounds.getNorthWest().lng + '/'
+        + bounds.getSouthEast().lat + '/' + bounds.getSouthEast().lng;
+        if (this.customParams != null) {
+            url += '/' + this.customParams;
+        }
+        
+        var self = this;
+        var jqxhr = $.get( url, function(data) {
+            try {
+                data = JSON.parse(data);
+            } catch(err) {
+                self.callbackError("Got invalid data from server")
+            }
+            
+            self.setHeadmapData.setData(data);
+           
+        })
+        .fail(function() {
+                self.callbackError("Could not get data from server");
+            }
+        );
     }
     
     this.setHeadmapData = function(data) {
-        this.heatmapLayer.setData(data)
+        this.heatmapLayer.setData(data);
     }
     
     this.removeMap = function() {

@@ -3,7 +3,8 @@
  */
 function appView() {
     console.log("constructor running");
-    this.mapManager = new heatmapManager();
+    this.mapManager = new heatmapManager("appView");
+    this.appName = "appView";
     
     this.runApp = function (mapDiv,controlDiv,removeOldMap) {
         this.mapDiv = mapDiv;
@@ -11,6 +12,7 @@ function appView() {
         if(removeOldMap) {
             
         }
+        this.mapManager.customParams = '2016-10-10/16';
         this.mapManager.createMap(this.mapDiv);
     }
     
