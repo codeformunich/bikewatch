@@ -24,6 +24,14 @@ function appExtrapolation() {
     this.onNavbarLoaded = function() { /* has to be defined beofre runapp */
         var thiz = this;
 
+        $('#weekdayslider').slider({
+            ticks: [0,1,2,3,4,5,6],
+            ticks_labels: ["Mo","Tu","We","Th","Fr","Sa","Su"]
+        });
+        $('#extrapolationtimepicker').slider({ formatter: function(value) {
+            return value + ' o\'clock';
+        }});
+
         // bind form event handler
         $(document.forms.appViewForm).bind('submit', function(e) {
             e.preventDefault();
