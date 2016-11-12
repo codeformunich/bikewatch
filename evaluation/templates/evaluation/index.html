@@ -63,7 +63,7 @@
             window.onload = function() {
                 defaultHandler = null;
                 for (C=0; C < appConfig.length; C++) {
-					$('#nav_container').append('<li class="active"><a id="map_handler" href="#" onclick="mapHandler.stopApp(); mapHandler = new ' + appConfig[C][1].name + '(); mapHandler.runApp(\'map_container\',\'control_container\');return false;">'+ appConfig[C][0] +'</a></li>');
+					$('#nav_container').append('<li><a id="map_handler" href="#" onclick="mapHandler.stopApp(); mapHandler = new ' + appConfig[C][1].name + '(); mapHandler.runApp(\'map_container\',\'control_container\');return false;">'+ appConfig[C][0] +'</a></li>');
                     if(appConfig[C][0] == defaultApp) {
                         defaultHandler = appConfig[C][1];
                     }
