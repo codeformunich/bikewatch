@@ -6,15 +6,16 @@ from django.template import loader
 from data.models import Bikes
 from evaluation.models import BikePath
 
-import datetime
 import json
-import os.path
+import math
+import datetime
 
 
 def index(request):
     context = {}
 
     return render(request, 'evaluation/index.html', context)
+
 
 def get_app_controlbar(request, appName):
     context = {}
@@ -31,21 +32,53 @@ def get_app_controlbar(request, appName):
 
 
 def update_map(request, ltlat, ltlong, rblat, rblong, date, hour):
-    # Long: 11, lat: 48
-    # Example: http://localhost:8000/api/evaluation/48/11.55/49/12/1/1
-    data = Bikes.objects.filter(place_coords__within=Polygon
-        .from_bbox((ltlong, ltlat, rblong, rblat)))[:100]
-    #data = Bikes.objects.all()[:10]
+    # Compute degree for 100 m
+    MUNICH_LONG = 11.5820
+    MUNICH_LAT = 48.1351
+    GRID_LONG = 1 / MUNICH_LONG * abs(math.cos(MUNICH_LAT)) * 0.1
+    GRID_LAT = 1 / MUNICH_LAT * 0.1
+
+    # Round position to a raster with the GRID_* accuracy
+    def round_position(lng, lat):
+        (lng - (lng % GRID_LONG), lat - (lat % GRID_LAT))
+
+
+    date = datetime.datetime.strptime(date, "%Y-%m-%d")
+    hour = int(hour)
+
+    # Example: http://localhost:8000/api/evaluation/48/11.55/49/12/2016-07-05/15
+    # Fetch all data for the given time
+    data = Bikes.get_for_day(date).filter(timestamp__hour=hour)[:20]
+    # Send all data
+    #data = all_data.filter(place_coords__within=
+    #    Polygon.from_bbox((ltlong, ltlat, rblong, rblat)))
+
+    # Accumulate points by coordinates in the GRID_* raster
+    # points is a dictionary from points (long, lat) → count
+    points = {}
+    for b in data:
+        if b.bikes > 0:
+            #pos = round_position(b.place_coords[0], b.place_coords[1])
+            pos = (b.place_coords[0] - (b.place_coords[0] % GRID_LONG), b.place_coords[1] - (b.place_coords[1] % GRID_LAT))
+            if pos in points.keys():
+                points[pos] += b.bikes
+            else:
+                points[pos] = b.bikes
 
     result = []
-    for b in data:
+    for p in points:
         result.append({
-            "long": b.place_coords[0],
-            "lat": b.place_coords[1],
-            "count": b.bikes,
+            "long": p[0] + GRID_LONG / 2,
+            "lat": p[1] + GRID_LAT / 2,
+            "count": points[p],
         })
 
-    json_str = json.dumps(result)
+    json_str = json.dumps({
+        "grid_size_long": GRID_LONG,
+        "grid_size_lat": GRID_LAT,
+        "grid_size_meter": 100,
+        "data": result
+    })
     return HttpResponse(json_str, content_type='application/json')
 
 def path(request, ltlat, ltlong, rblat, rblong, year, month, day):
