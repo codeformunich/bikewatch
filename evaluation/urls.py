@@ -34,4 +34,11 @@ urlpatterns = [
     url(r"""^api/appPath/available_dates/$""",
         views.path_dates,
         name='path_dates'),
+
+    # appFollow
+    url(r"""^api/appFollow/(?P<ltlat>[0-9.]+)/(?P<ltlong>[0-9.]+)/"""
+         """(?P<rblat>[0-9.]+)/(?P<rblong>[0-9.]+)/"""
+         """(?P<bike_uid>\w+)/$""",
+        views.follow,
+        name='follow'),
 ]

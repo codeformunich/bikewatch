@@ -18,8 +18,10 @@
         <script src="{% static 'evaluation/appView.cls.js' %}"></script>
         <link rel="stylesheet" href="{% static 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}">
         <script src="{% static 'evaluation/appPath.cls.js' %}"></script>
+        <script src="{% static 'evaluation/appFollow.cls.js' %}"></script>
         <script src="{% static 'evaluation/map_layers/layer_heat.cls.js' %}"></script>
         <script src="{% static 'evaluation/map_layers/layer_path.cls.js' %}"></script>
+        <script src="{% static 'evaluation/map_layers/layer_follow.cls.js' %}"></script>
 		<link rel="stylesheet" href="{% static 'seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css' %}">
 		<link rel="stylesheet" href="{% static 'css/evaluation/frame.css' %}">
 		<script src="{% static 'evaluation/appExtrapolation.cls.js' %}"></script>
@@ -33,6 +35,7 @@
             var appConfig = [
                 ["Avaliability by Time", appView],
                 ["Routes of Bikes", appPath],
+                ["Follow one bike", appFollow],
                 ["Extrapolation", appExtrapolation]
             ];
             var defaultApp = 0;

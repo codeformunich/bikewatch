@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.template import loader
 
 from data.models import Bikes
+from data.helpers import get_path
 from evaluation.models import BikePath
 
 import json
@@ -113,4 +114,15 @@ def path_dates(request):
     dates = sorted([d['date'].strftime("%Y-%m-%d") for d in dates])
 
     json_str = json.dumps(dates)
+    return HttpResponse(json_str, content_type='application/json')
+
+
+def follow(request, ltlat, ltlong, rblat, rblong, bike_uid):
+    data = get_path(bike_uid)
+
+    result = []
+    for p in data:
+        result.append((p.get_x(), p.get_y()))
+
+    json_str = json.dumps(result)
     return HttpResponse(json_str, content_type='application/json')

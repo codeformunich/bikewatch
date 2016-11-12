@@ -25,7 +25,9 @@ function heatmapManager(appName) {
         
         
     
-    this.createMap = function(targetDivId, submapClass) {
+    this.createMap = function(targetDivId, submapClass, noload) {
+        noload = typeof noload !== 'undefined' ? noload : false;
+
         var baseLayer =  L.tileLayer(
           'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -41,7 +43,9 @@ function heatmapManager(appName) {
         
         this.submapLayer = new submapClass();
         this.submapLayer.init(this.map, {default_zoom: this.standardZoom, center_lattitude: this.center_lat});
-        this.refreshMap();
+        if(!noload) {
+            this.refreshMap();
+        }
     };
     
    this.refreshMap = function () {

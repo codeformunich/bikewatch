@@ -1,7 +1,7 @@
 function pathLayer() {
     this.init = function(map) {
         this.map = map;
-        this.layers = [];
+        this.layer = null;
     }
 
     this.setData = function(data) {
@@ -15,6 +15,9 @@ function pathLayer() {
             lines.push(tmp);
         }
 
-        var myLayer = L.geoJSON(lines).addTo(this.map);
+        if(this.layer) {
+            this.map.removeLayer(this.layer);
+        }
+        this.layer = L.geoJSON(lines).addTo(this.map);
     }
 }
