@@ -4,12 +4,14 @@
 		{% load static %}
         <link rel="stylesheet" href="{% static 'leaflet/dist/leaflet.css' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
+        <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
 		<script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
 		<script src="{% static 'leaflet/dist/leaflet.js' %}"></script>
     	<script src="{% static '/heatmap.js-amd/build/heatmap.min.js' %}"></script>
     	<script src="{% static 'heatmap.js-amd/plugins/leaflet-heatmap/leaflet-heatmap.js' %}"></script>
         <script src="{% static 'evaluation/map.cls.js' %}"></script>
-		<link rel="stylesheet" href="{% static 'css/frame.css' %}">
+        <script src="{% static 'evaluation/appView.cls.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/frame.css' %}">
         <style>
               body, html { margin:0; padding:0; height:100%;}
               .leaflet-container {
@@ -17,7 +19,7 @@
               }
         </style>
         <script>
-            var appConfig = [["Verfügbarkeit nach Zeitpunkt",availabilityApp]]
+            var appConfig = [["Verfügbarkeit nach Zeitpunkt",appView]]
             defaultApp = "Verfügbarkeit nach Zeitpunkt"
         </script>
         
@@ -56,17 +58,18 @@
         <script>
             window.onload = function() {
                 defaultHandler = null;
-                for (app in appConfig) {
-                    $('#nav_container').append('<button onClick="manager = new ' + app[1] 
-                            + '; manager.runApp(\\"map_container\\",\\"control_container\\");> ' + app[0] + "</button>");
-                    if(app[0] == defaultApp) {
-                        defaultHandler = app[1]
+                for (C=0; C < appConfig.length; C++) {
+                    $('#nav_container').append('<button onClick="mapHandler.stopApp(); mapHandler = new ' + appConfig[C][1].name 
+                            + '(); mapHandler.runApp(\'map_container\',\'control_container\');">' + appConfig[C][0] + "</button>");
+                    if(appConfig[C][0] == defaultApp) {
+                        defaultHandler = appConfig[C][1];
                     }
                 }
                 
-                if (defaultHandler != null)
+                if (defaultHandler != null) {
                     mapHandler = new defaultHandler();
-                    mapHandler.runApp("map_container","control_container");
+                    mapHandler.runApp("map_container", "control_container");
+                };
             };
         </script>
     </body>
