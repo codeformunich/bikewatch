@@ -19,7 +19,7 @@ app.prototype = {
             self.onNavbarLoaded();
         })
         .fail(function(data) {
-            self.errorFunction("Error loading navigation bar. Please reload the page") 
+            //self.errorFunction("Error loading navigation bar. Please reload the page") 
         })
     },
     

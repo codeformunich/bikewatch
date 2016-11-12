@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'hackatum',
         'USER': 'hackatum',
         'PASSWORD': 'hackatum2016',
-        'HOST': '10.0.0.1',
+        'HOST': '131.159.216.58',
     }
 }
 
