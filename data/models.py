@@ -8,7 +8,9 @@ class Bikes(models.Model):
         unique_together = (('timestamp', 'place_uid', 'place_coords',
                             'place_name',),)
 
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(
+        db_index=True,
+    )
 
     place_uid = models.IntegerField()
 
