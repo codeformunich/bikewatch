@@ -21,7 +21,7 @@ def get_app_controlbar(request, appName):
     context = {}
     if not appName.isalnum():
         return HttpResponse(status=400)
-    
+
     template_name = 'evaluation/app_controlbars/' + appName + '.html'
     loader.get_template(template_name)
     try:
