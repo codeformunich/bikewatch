@@ -36,8 +36,8 @@ function appProbability() {
         }});
 
         // init map
-        this.evaluateParams();
-        this.mapManager.createMap(this.mapDiv, probabilityLayer);
+        // this.evaluateParams();
+        this.mapManager.createMap(this.mapDiv, probabilityLayer, true);
         
     }
     
