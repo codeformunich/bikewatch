@@ -34,7 +34,7 @@ function probabilityLayer() {
 		circle05.addTo(this.map);
 		circle075.addTo(this.map);
 		circle09.addTo(this.map);
-		this.map.on('click', onMapClick);
+		this.map.on('click', this.onMapClick);
 		console.log(Math.pow(2,additionalargs.default_zoom))
         resolution = 156543.03 * Math.cos((2*Math.PI/360)*additionalargs.center_lattitude) / (Math.pow(2,0)); //taken from: http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Resolution_and_Scale
         //this.cfg.radius = this.bicycle_tile_size_m / (2*resolution);
@@ -49,8 +49,13 @@ function probabilityLayer() {
 		this.overlay.setData({data: data.data});
 	}
 
+	var mapclickevent = null;
 	
-	function onMapClick(e) {
+	this.onMapClick = function(e){
+		if ( e == null )
+			e = mapclickevent;
+		else
+			mapclickevent = e;
 		// do request for probabilities
 		var wdslider = $("#weekdaysliderprob");
 		var tslider = $("#extrapolationtimepickerprob");
@@ -59,7 +64,6 @@ function probabilityLayer() {
 			encodeURI(wdslider.slider('getValue')) + "/" + encodeURI(tslider.slider('getValue'));
 		
 		var dataJson = null;
-		var self = this;
         var jqxhr = $.get( url, function(data) {
 			console.warn(data);
             console.warn("data is: " + data);

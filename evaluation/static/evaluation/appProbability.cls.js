@@ -6,23 +6,20 @@ function appProbability() {
     //this.errorFunction = app.prototype.errorFunction;
     
     this.evaluateParams = function() {
-        var form = document.forms.appProbForm;
-        var weekday = form.weekdayprob.value;
-        var extime = form.extrapolationtimeprob.value;
-        this.mapManager.customParams += encodeURI(weekday) + '/' + encodeURI(extime);
-        console.log(this.mapManager.customParams);
+		// reevaluate sliders and redraw circles
+        this.mapManager.submapLayer.onMapClick(null);
     };
 
     this.refresh = function() {
         this.evaluateParams();
-        this.mapManager.refreshMap();
+        //this.mapManager.refreshMap();
     };
 
     this.onNavbarLoaded = function() { /* has to be defined beofre runapp */
         var thiz = this;
 
         // bind form event handler
-        $(document.forms.appViewForm).bind('submit', function(e) {
+        $(document.forms.appProbForm).bind('submit', function(e) {
             e.preventDefault();
             thiz.refresh();
         });
