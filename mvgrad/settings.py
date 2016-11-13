@@ -83,11 +83,11 @@ DATABASES = {
         'NAME': 'hackatum',
         'USER': 'hackatum',
         'PASSWORD': 'hackatum2016',
-        'HOST': '131.159.216.58',
+        'HOST': 'localhost',
     }
 }
 
-CELERY_BROKER_URL = 'redis://:hackatum16@10.0.0.1:6379/0'
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
