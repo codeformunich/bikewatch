@@ -80,7 +80,7 @@ function appStats() {
     this.runApp = function (mapDiv,controlDiv) {
         app.prototype.runApp.call(this, mapDiv, controlDiv);
         console.log(this.mapDiv);
-        showLoader(this.mapDiv);
+        showLoader('content');
     };
 
     // no map here
