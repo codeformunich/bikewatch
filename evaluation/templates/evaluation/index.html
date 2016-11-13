@@ -44,6 +44,23 @@
        
     </head>
     <body>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+                <h4 class="modal-title">Description</h4>
+              </div>
+              <div class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
@@ -65,6 +82,9 @@
 		<div id="content">
 			<div id="map_container" class="col-sm-10 col-md-11"></div>
 			<div id="control_container" class="col-sm-2 col-md-1"></div>
+
+            <button type="button" id="helpBtn" class="btn btn-lg btn-info"
+                    data-toggle="modal" data-target="#myModal" title="Description"><span class="glyphicon glyphicon-info-sign"></span></button>
 		</div>
 		
         <script>
@@ -104,7 +124,15 @@
                     }
                 }
                 
+                $("#helpBtn").tooltip();
+                $("#myModal").on("show.bs.modal", function(event) {
+                    var content = $("#appHelp").contents().clone(true);
 
+                    $(this).find(".modal-body").empty().append(content);
+
+                    if(!content.length)
+                        e.preventDefault();
+                });
             });
         </script>
     </body>

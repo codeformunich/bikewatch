@@ -40,3 +40,9 @@ h1 a {
 		height: 100%;
 	}
 }
+
+#helpBtn {
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+}
