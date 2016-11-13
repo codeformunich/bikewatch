@@ -117,7 +117,7 @@
 				console.log("showLoader on " + element);
 			};
 			window.hideLoader = function(){
-				loadOverlay.detach();
+				loadOverlay.fadeOut(200, function(){ loadOverlay.detach() });
 			};
         </script>
     </body>
