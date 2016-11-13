@@ -30,11 +30,11 @@ function heatmapManager(appName) {
 
         var baseLayer =  L.tileLayer(
           'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            attribution: '<a href="http://openstreetmap.org">OpenStreetMap</a>, <a href="http://opendatacommons.org/licenses/odbl/1.0/">ODbL</a>',
             maxZoom: this.baseLayerMaxZoom
           }
         );
-        
+
         this.map = new L.Map(targetDivId, {
           center: new L.LatLng(this.center_lat, this.center_long),
           zoom: this.standardZoom,

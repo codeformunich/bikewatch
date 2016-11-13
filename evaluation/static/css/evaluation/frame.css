@@ -24,7 +24,6 @@ h1 a {
 }
 
 
-
 #map_container {
 	background: #333;
 }
@@ -45,4 +44,48 @@ h1 a {
 	position: absolute;
 	right: 15px;
 	bottom: 15px;
+}
+
+
+/* SIDE MENU */
+.nav-sidebar {
+	margin-right: -15px;
+	margin-left: -15px;
+}
+.nav-sidebar .active a, .nav-sidebar .active a:hover, .nav-sidebar .active a:focus {
+	color: #fff;
+	background-color: #428bca;
+}
+
+
+
+/*  LOADER ANIMATION  */
+div.loadOverlay {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.5);
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 999;
+}
+div.loadOverlay:before {
+	content: " ";
+	position: absolute;
+	top: calc(50% - 60px);
+	left: calc(50% - 60px);
+}
+
+div.loadOverlay:before, .loader {
+	border: 1em solid #555; /* Light grey */
+	border-top: 1em solid #3498db; /* Blue */
+	border-radius: 50%;
+	width: 10em;
+	height: 10em;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
 }

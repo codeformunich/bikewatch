@@ -31,4 +31,11 @@ def get_path(bike_id, date=None):
 
             last_station_uid = cur.place_uid
 
-    return path
+    if tmp.count() > 0:
+        min_date = tmp[0].timestamp.strftime("%Y-%m-%d")
+        max_date = tmp.reverse()[0].timestamp.strftime("%Y-%m-%d")
+    else:
+        min_date = None
+        max_date = None
+
+    return path, min_date, max_date

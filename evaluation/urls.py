@@ -41,4 +41,9 @@ urlpatterns = [
          """(?P<bike_uid>\w+)/$""",
         views.follow,
         name='follow'),
+
+    # appStats
+    url(r"""^api/appStats/(?P<statistic>\d+)$""",
+        views.stats,
+        name='stats'),
 ]
