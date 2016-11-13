@@ -2,17 +2,17 @@
 <html>
     <head>
         <title>BikeWatch</title>
-		{% load static %}
+        {% load static %}
         <link rel="stylesheet" href="{% static 'leaflet/dist/leaflet.css' %}"/>
-		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
         <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
         <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
-		<script src="{% static 'moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'moment/min/moment.min.js' %}"></script>
         <script src="{% static 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
-		<script src="{% static 'leaflet/dist/leaflet.js' %}"></script>
-    	<script src="{% static 'heatmap.js-amd/build/heatmap.min.js' %}"></script>
-		<script src="{% static 'heatmap.js-amd/plugins/leaflet-heatmap/leaflet-heatmap.js' %}"></script>
-		<script src="{% static 'seiyria-bootstrap-slider/dist/bootstrap-slider.min.js' %}"></script>
+        <script src="{% static 'leaflet/dist/leaflet.js' %}"></script>
+        <script src="{% static 'heatmap.js-amd/build/heatmap.min.js' %}"></script>
+        <script src="{% static 'heatmap.js-amd/plugins/leaflet-heatmap/leaflet-heatmap.js' %}"></script>
+        <script src="{% static 'seiyria-bootstrap-slider/dist/bootstrap-slider.min.js' %}"></script>
         <script src="{% static 'evaluation/map.cls.js' %}"></script>
         <script src="{% static 'evaluation/app.cls.js' %}"></script>
         <script src="{% static 'evaluation/appView.cls.js' %}"></script>
@@ -23,9 +23,9 @@
         <script src="{% static 'evaluation/map_layers/layer_path.cls.js' %}"></script>
         <script src="{% static 'evaluation/map_layers/layer_follow.cls.js' %}"></script>
         <script src="{% static 'evaluation/map_layers/layer_probability.cls.js' %}"></script>
-		<link rel="stylesheet" href="{% static 'seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css' %}">
-		<link rel="stylesheet" href="{% static 'css/evaluation/frame.css' %}">
-		<script src="{% static 'evaluation/appExtrapolation.cls.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/evaluation/frame.css' %}">
+        <script src="{% static 'evaluation/appExtrapolation.cls.js' %}"></script>
         <script src="{% static 'evaluation/appProbability.cls.js' %}"></script>
         <script src="{% static 'evaluation/appStats.cls.js' %}"></script>
         <script>
@@ -39,8 +39,8 @@
             ];
             var defaultApp = 0;
         </script>
-        
-       
+
+
     </head>
     <body>
 
@@ -84,35 +84,35 @@ Scraped MVG data provided by <a href="https://twitter.com/robbi5">@robbi5</a>
         </div><!-- /.modal -->
 
 
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
 					<a class="navbar-brand" href="#">BikeWatch</a>
-				</div>
-				<div class="navbar-collapse collapse">
+                </div>
+                <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" id="nav_container">
                     </ul>
                     <ul class="nav navbar-nav">
                     <li><a href="#" data-toggle="modal" data-target="#aboutModal">About</a></li>
                     </ul>
-				</div><!--/.nav-collapse -->
-			</div>
-		</nav>
-		
-		<div id="content">
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <div id="content">
 			<div id="map_container" class="col-sm-10"></div>
 			<div id="control_container" class="col-sm-2"></div>
 
             <button type="button" id="helpBtn" class="btn btn-lg btn-info"
                     data-toggle="modal" data-target="#myModal" title="Description"><span class="glyphicon glyphicon-info-sign"></span></button>
-		</div>
-		
+        </div>
+
         <script>
             $(function() {
                 window.activeHandler = null;
@@ -169,13 +169,10 @@ Scraped MVG data provided by <a href="https://twitter.com/robbi5">@robbi5</a>
 				loadOverlay.hide();
 				jqEl.append(loadOverlay);
 				loadOverlay.fadeIn();
-				console.log("showLoader on " + element);
 			};
 			window.hideLoader = function(){
 				loadOverlay.fadeOut(200, function(){ loadOverlay.detach() });
 			};
         </script>
     </body>
-
-
 </html>

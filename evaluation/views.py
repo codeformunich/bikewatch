@@ -103,7 +103,18 @@ def follow(request, ltlat, ltlong, rblat, rblong, bike_uid):
     return HttpResponse(json_str, content_type='application/json')
 
 def stats(request, statistic):
-    result = { "stat": statistic }
+    result = []
+    if int(statistic) == 1:
+        # Count the amount of currently free vehicles
+        result = [{
+            "type": "line",
+            "data": {
+                "labels": ["Available vehicles"],
+                "datasets": [{
+                    "data": [10, 20, 5, 2]
+                }]
+            }
+        }]
 
     json_str = json.dumps(result)
     return HttpResponse(json_str, content_type='application/json')

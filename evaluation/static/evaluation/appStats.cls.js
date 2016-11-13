@@ -5,48 +5,45 @@
 function appStats() {
     this.appName = "appStats";
 
-    var self = this;
-    var menuElements;
-    var currentItem;
+    this.menuElements = null;
+    this.currentItem = null;
 
     this.onNavbarLoaded = function() {
-        console.log('Navbar loaded');
-        menuElements = $('#' + self.controlDiv + " a");
-        menuElements.click(function() { selectMenuElement(this); });
-        selectMenuElement(menuElements[0]);
+        this.menuElements = $('#' + this.controlDiv + " a");
+        this.currentItem = $(this.menuElements[0]);
+        var self = this;
+        this.menuElements.click(function() { self.selectMenuElement($(this)); });
+        this.selectMenuElement(this.currentItem);
     };
 
+    this.selectMenuElement = function(element) {
+        this.menuElements.parent().removeClass('active');
+        this.currentItem = element;
+        this.currentItem.parent().addClass('active');
 
-    function selectMenuElement(element){
-        menuElements.parent().removeClass('active');
-        currentItem = $(element);
-        currentItem.parent().addClass('active');
-
-        console.log("Show Stats: " + currentItem.innerText);
-
-        $.getJSON('/api/appStats/' + currentItem.attr('data-src'), function(data) {
-            displayContent(data);
+        var self = this;
+        $.getJSON('/api/appStats/' + this.currentItem.attr('data-src'), function(data) {
+            self.displayContent(data);
         }).fail(function(data) {
-            //self.errorFunction("Error loading navigation bar. Please reload the page")
+            self.errorFunction("Error loading navigation bar. Please reload the page")
         });
 
         showLoader(self.mapDiv);
-    }
-
+    };
 
     /**
      * Displays the given data with graph.js
      * @param data an array of graph.js data
      */
-    function displayContent(data){
-        var content = $('#' + self.mapDiv);
+    this.displayContent = function(data) {
+        var content = $('#' + this.mapDiv);
         content.innerHTML = '';
 
-        while(data.length >= 2){
+        while(data.length >= 2) {
             var div = $('<div/>');
 
-            var canv1 = createChart(data.shift(), "45%"),
-                canv2 = createChart(data.shift(), "45%", "right");
+            var canv1 = this.createChart(data.shift(), "45%");
+            var canv2 = this.createChart(data.shift(), "45%", "right");
 
             div.append(canv1);
             div.append(canv2);
@@ -57,33 +54,32 @@ function appStats() {
         while(data.length > 0){
             var div = $('<div/>');
 
-            var canv = createChart(data.shift(), "100%");
+            var canv = this.createChart(data.shift(), "100%");
 
             div.append(canv);
 
             content.append(div);
             console.log("Placing single canvas");
         }
-    }
+    };
 
 
-    function createChart(data, width, float){
+    this.createChart = function(data, width, float) {
         var canvas = $('<canvas/>').width(width).height('20em');
-        if(float != undefined)
+        if (float != undefined)
             canvas.css("float", float);
 
-        new Chart(this.canvas,data);
+        new Chart(canvas, data);
         return canvas;
-    }
+    };
 
 
-    this.runApp = function (mapDiv,controlDiv) {
+    this.runApp = function (mapDiv, controlDiv) {
         app.prototype.runApp.call(this, mapDiv, controlDiv);
-        console.log(this.mapDiv);
         showLoader('content');
     };
 
     // no map here
-    this.stopApp = function(){};
+    this.stopApp = function() {};
 }
 appStats.prototype = app.prototype;
