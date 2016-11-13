@@ -20,9 +20,9 @@ def get_app_controlbar(request, appName):
     # calculate initial date depending on appName
     initial_date = None
     if appName == "appPath":
-        initial_date = TextCache.objects.get(key='view_dates_newest').text
-    elif appName == "appView":
         initial_date = TextCache.objects.get(key='path_dates_newest').text
+    elif appName == "appView":
+        initial_date = TextCache.objects.get(key='view_dates_newest').text
 
     context = {'initial_date': initial_date}
 
@@ -82,11 +82,15 @@ def path_dates(request):
 
 
 def follow(request, ltlat, ltlong, rblat, rblong, bike_uid):
-    data = get_path(bike_uid)
+    data, min_date, max_date = get_path(bike_uid)
 
-    result = []
+    result_list = []
     for p in data:
-        result.append((p.get_x(), p.get_y()))
+        result_list.append((p.get_x(), p.get_y()))
+
+    result = {'data': result_list,
+              'max_date': max_date,
+              'min_date': min_date}
 
     json_str = json.dumps(result)
     return HttpResponse(json_str, content_type='application/json')

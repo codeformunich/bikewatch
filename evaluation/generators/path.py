@@ -10,7 +10,7 @@ def generate_path_data(date):
     results = []
 
     for cur_id in ids:
-        path = get_path(cur_id, date)
+        path, min_date, max_date = get_path(cur_id, date)
 
         obj = BikePath(date=date, bike_id=cur_id, path=MultiPoint(path))
         results.append(obj)
