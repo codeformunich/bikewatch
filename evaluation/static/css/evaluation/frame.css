@@ -58,8 +58,8 @@ div.loadOverlay:before, .loader {
 	border: 1em solid #555; /* Light grey */
 	border-top: 1em solid #3498db; /* Blue */
 	border-radius: 50%;
-	width: 4em;
-	height: 4em;
+	width: 10em;
+	height: 10em;
 	animation: spin 1s linear infinite;
 }
 
