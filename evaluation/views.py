@@ -104,15 +104,25 @@ def follow(request, ltlat, ltlong, rblat, rblong, bike_uid):
 
 def stats(request, statistic):
     result = []
-    if int(statistic) == 1:
+    statistic = int(statistic)
+    if statistic == 1:
         # Count the amount of currently free vehicles
         result = [{
             "type": "line",
             "data": {
-                "labels": ["Available vehicles"],
+                "labels": ["1", "2", "3", "4"],
                 "datasets": [{
+                    "label": "Available vehicles",
                     "data": [10, 20, 5, 2]
                 }]
+            },
+            "options": {
+                "scales": {
+                    "xAxes": [{
+                        "type": 'linear',
+                        "position": 'bottom'
+                    }]
+                }
             }
         }]
 

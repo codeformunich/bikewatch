@@ -27,8 +27,6 @@ function appStats() {
         }).fail(function(data) {
             self.errorFunction("Error loading navigation bar. Please reload the page")
         });
-
-        showLoader(self.mapDiv);
     };
 
     /**
@@ -41,42 +39,31 @@ function appStats() {
 
         while(data.length >= 2) {
             var div = $('<div/>');
-
-            var canv1 = this.createChart(data.shift(), "45%");
-            var canv2 = this.createChart(data.shift(), "45%", "right");
-
-            div.append(canv1);
-            div.append(canv2);
-
             content.append(div);
-            console.log("Placing 2 canvas in line");
+            this.createChart(div, data.shift(), "45%");
+            this.createChart(div, data.shift(), "45%", "right");
         }
-        while(data.length > 0){
+        while(data.length > 0) {
             var div = $('<div/>');
-
-            var canv = this.createChart(data.shift(), "100%");
-
-            div.append(canv);
-
             content.append(div);
-            console.log("Placing single canvas");
+
+            this.createChart(div, data.shift(), "100%");
         }
     };
 
 
-    this.createChart = function(data, width, float) {
+    this.createChart = function(parent, data, width, float) {
         var canvas = $('<canvas/>').width(width).height('20em');
         if (float != undefined)
             canvas.css("float", float);
+        parent.append(canvas);
 
-        new Chart(canvas, data);
-        return canvas;
+        new Chart(canvas[0].getContext('2d'), data);
     };
 
 
     this.runApp = function (mapDiv, controlDiv) {
         app.prototype.runApp.call(this, mapDiv, controlDiv);
-        showLoader('content');
     };
 
     // no map here
