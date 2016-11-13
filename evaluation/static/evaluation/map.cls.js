@@ -40,8 +40,14 @@ function heatmapManager(appName) {
           zoom: this.standardZoom,
           layers: [baseLayer]
         });
-		
+
 		L.control.scale({imperial: false}).addTo(this.map);
+
+        // init leaflet.locatecontrol
+        L.control.locate({
+            icon: 'glyphicon glyphicon-map-marker',
+            iconLoading: 'glyphicon glyphicon-map-marker'
+        }).addTo(this.map);
         
         this.submapLayer = new submapClass();
         this.submapLayer.init(this.map, {mapmanager: this, default_zoom: this.standardZoom, center_lattitude: this.center_lat});

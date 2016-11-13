@@ -142,6 +142,7 @@ BOWER_COMPONENTS_ROOT = BASE_DIR + '/components'
 BOWER_INSTALLED_APPS = (
 'heatmap.js.bower#^2.0.5',
 'leaflet',
+'leaflet.locatecontrol',
 'jquery',
 'bootstrap',
 'eonasdan-bootstrap-datetimepicker',
