@@ -9,8 +9,12 @@ function followLayer() {
             this.map.removeLayer(this.layer);
         }
 
-        if(data.length > 0) {
-            lines = [{"type": "LineString", "coordinates": data}];
+        if(data.data.length > 0) {
+            lines = [{"type": "LineString", "coordinates": data.data}];
+
+            document.getElementById('appFollowDates').style.visibility = "visible";
+            document.getElementById('appFollowMinDate').innerHTML = data.min_date;
+            document.getElementById('appFollowMaxDate').innerHTML = data.max_date;
 
             this.layer = L.geoJSON(lines).addTo(this.map);
         }
