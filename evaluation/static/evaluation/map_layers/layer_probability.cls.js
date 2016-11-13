@@ -62,7 +62,7 @@ function probabilityLayer() {
 		url = mapmanager.ajaxbaseurl + "/" + mapmanager.appName + "/0/0/0/0/" + 
 			encodeURI(e.latlng.lat) + "/" + encodeURI(e.latlng.lng) + "/" + 
 			encodeURI(wdslider.slider('getValue')) + "/" + encodeURI(tslider.slider('getValue'));
-		
+		console.warn(url);
 		var dataJson = null;
         var jqxhr = $.get( url, function(data) {
 			console.warn(data);
