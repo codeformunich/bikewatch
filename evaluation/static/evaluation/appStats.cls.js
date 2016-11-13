@@ -47,7 +47,7 @@ function appStats() {
             var div = $('<div/>');
             content.append(div);
 
-            this.createChart(div, data.shift(), "100%");
+            this.createChart(div, data.shift(), "80%");
         }
     };
 

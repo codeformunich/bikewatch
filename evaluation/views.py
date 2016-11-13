@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
+from django.db.models import Sum
 
 from django.db.models import Count
 from django.contrib.gis.db.models.functions import Distance
@@ -107,22 +108,23 @@ def stats(request, statistic):
     statistic = int(statistic)
     if statistic == 1:
         # Count the amount of currently free vehicles
+        labels = []
+        data = []
+        for date in (datetime.date(2016, 10, 1) + datetime.timedelta(n) for n in range(0, 30, 5)):
+            # Take 13:00 as the time of a day
+            count = Bikes.objects.filter(timestamp__hour=13, timestamp__minute=0)
+            count = count.aggregate(bikes=Sum("bikes"))["bikes"]
+            data.append(count)
+            labels.append(date.strftime("%Y-%m-%d"))
+
         result = [{
             "type": "line",
             "data": {
-                "labels": ["1", "2", "3", "4"],
+                "labels": labels,
                 "datasets": [{
                     "label": "Available vehicles",
-                    "data": [10, 20, 5, 2]
+                    "data": data
                 }]
-            },
-            "options": {
-                "scales": {
-                    "xAxes": [{
-                        "type": 'linear',
-                        "position": 'bottom'
-                    }]
-                }
             }
         }]
 
