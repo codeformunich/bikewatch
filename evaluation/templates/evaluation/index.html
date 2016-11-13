@@ -28,12 +28,6 @@
 		<script src="{% static 'evaluation/appExtrapolation.cls.js' %}"></script>
         <script src="{% static 'evaluation/appProbability.cls.js' %}"></script>
         <script src="{% static 'evaluation/appStats.cls.js' %}"></script>
-        <style>
-              body, html { margin:0; padding:0; height:100%;}
-              .leaflet-container {
-                background: rgba(0,0,0,.8) !important;
-              }
-        </style>
         <script>
             var appConfig = [
                 ["Avaliability by Time", appView],
@@ -49,6 +43,40 @@
        
     </head>
     <body>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+                <h4 class="modal-title">Description</h4>
+              </div>
+              <div class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="aboutModal">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>    
+                <h4 class="modal-title">About</h4>
+              </div>
+              <div class="modal-body">
+                  <p>TODO: About text</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
@@ -61,15 +89,21 @@
 					<a class="navbar-brand" href="#">BikeWatch</a>
 				</div>
 				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav" id="nav_container">
-					</ul>
+                    <ul class="nav navbar-nav" id="nav_container">
+                    </ul>
+                    <ul class="nav navbar-nav">
+                    <li><a href="#" data-toggle="modal" data-target="#aboutModal">About</a></li>
+                    </ul>
 				</div><!--/.nav-collapse -->
 			</div>
 		</nav>
 		
 		<div id="content">
-			<div id="map_container" class="col-md-11"></div>
-			<div id="control_container" class="col-md-1"></div>
+			<div id="map_container" class="col-sm-10"></div>
+			<div id="control_container" class="col-sm-2"></div>
+
+            <button type="button" id="helpBtn" class="btn btn-lg btn-info"
+                    data-toggle="modal" data-target="#myModal" title="Description"><span class="glyphicon glyphicon-info-sign"></span></button>
 		</div>
 		
         <script>
@@ -109,8 +143,19 @@
                     }
                 }
                 
+                $("#helpBtn").tooltip();
+                $("#myModal").on("show.bs.modal", function(event) {
+                    var content = $("#appHelp").contents().clone(true);
 
+                    $(this).find(".modal-body").empty().append(content);
+
+                    if(!content.length)
+                        e.preventDefault();
+                });
             });
+
+
+            // loading spinner
 			var loadOverlay = $('<div>').addClass('loadOverlay');
 			window.showLoader = function(element){
 				var jqEl = (typeof element === "object") ? $(element) : $('#' + element);
@@ -120,7 +165,7 @@
 				console.log("showLoader on " + element);
 			};
 			window.hideLoader = function(){
-				loadOverlay.detach();
+				loadOverlay.fadeOut(200, function(){ loadOverlay.detach() });
 			};
         </script>
     </body>

@@ -10,8 +10,13 @@ function appView() {
     var thiz = this;
     //this.errorFunction = app.prototype.errorFunction;
     
-    this.setStatus = function(text) {
-        $("#appViewStatus").text(text);
+    this.setLoading = function(flag, status) {
+        if(flag)
+            showLoader(this.mapDiv);
+        else
+            hideLoader();
+
+        $("#appViewStatus").text(status);
     }
 
     this.evaluateParams = function() {
@@ -24,10 +29,10 @@ function appView() {
 
     this.refresh = function() {
         this.evaluateParams();
-        this.setStatus("Loading data ...");
+        this.setLoading(true, "Loading data ...");
         this.mapManager.refreshMap()
-            .done(function(){ thiz.setStatus("Done!"); })
-            .fail(function(){ thiz.setStatus("Error!"); });
+            .done(function(){ thiz.setLoading(false, "Done!"); })
+            .fail(function(){ thiz.setLoading(false, "Error!"); });
     };
 
     this.onNavbarLoaded = function() { /* has to be defined beofre runapp */
@@ -39,7 +44,7 @@ function appView() {
 
         // hide until loading is complete
         $(document.forms.appViewForm).hide();
-        this.setStatus("Loading data ...");
+        this.setLoading(true, "Loading data ...");
 
         $.get(this.restEndpoint + "/available_dates", function(data) {
             if(!$.isArray(data)) {
@@ -59,8 +64,8 @@ function appView() {
             // init map
             thiz.evaluateParams();
             thiz.mapManager.createMap(thiz.mapDiv, heatMapLayer)
-                .done(function(){ thiz.setStatus("Done!"); })
-                .fail(function(){ thiz.setStatus("Error!"); });
+                .done(function(){ thiz.setLoading(false, "Done!"); })
+                .fail(function(){ thiz.setLoading(false, "Error!"); });
         }).fail(function(){ alert("Could not load available dates!"); });
     }
     

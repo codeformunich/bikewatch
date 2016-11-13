@@ -1,3 +1,14 @@
+
+body, html {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.leaflet-container {
+	background: rgba(0,0,0,.8) !important;
+}
+
 h1 a {
 	color: #FCA205;
 }
@@ -10,10 +21,6 @@ h1 a {
 	right: 0;
 }
 
-#map_container {
-	height: 100%;
-	background: blue;
-}
 
 #control_container {
 	padding-top: 10px;
@@ -26,6 +33,30 @@ h1 a {
 .slider.slider-horizontal{
 	width: 95%;
 }
+
+
+#map_container {
+	background: #333;
+}
+
+@media (max-width: 767px) {
+	#map_container {
+		height: 60vw;
+	}
+}
+
+@media (min-width: 768px) {
+	#map_container {
+		height: 100%;
+	}
+}
+
+#helpBtn {
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+}
+
 
 /* SIDE MENU */
 .nav-sidebar {
@@ -43,9 +74,11 @@ h1 a {
 div.loadOverlay {
 	position: absolute;
 	background: rgba(0, 0, 0, 0.5);
-	width: 100%;
-	height: 100%;
-	z-index: 1;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 999;
 }
 div.loadOverlay:before {
 	content: " ";

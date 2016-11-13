@@ -34,7 +34,7 @@ function heatmapManager(appName) {
             maxZoom: this.baseLayerMaxZoom
           }
         );
-        
+
         this.map = new L.Map(targetDivId, {
           center: new L.LatLng(this.center_lat, this.center_long),
           zoom: this.standardZoom,
