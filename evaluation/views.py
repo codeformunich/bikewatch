@@ -2,7 +2,14 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 
+from django.db.models import Count
+from django.contrib.gis.db.models.functions import Distance
+from django.db.models import Avg, Max, Min
+from django.contrib.gis.geos import Point
+from django.contrib.gis.measure import D
+
 from data.models import Bikes
+from evaluation.models import BikePath
 from data.helpers import get_path
 from evaluation.models import BikePath, TextCache
 
@@ -100,3 +107,29 @@ def stats(request, statistic):
 
     json_str = json.dumps(result)
     return HttpResponse(json_str, content_type='application/json')
+
+def probability(request,ltlat, ltlong, rblat, rblong ,poslat, poslong, dayindex, hourindex):
+    
+    #dayindex starts with 1 for sunday, see https://docs.djangoproject.com/en/dev/ref/models/querysets/#week-day
+    
+    loc = Point(float(poslong),float(poslat),srid=4326 ) #fixme: check that srid=4326 is right
+    print(loc)
+    result = Bikes.objects.filter(timestamp__week_day=dayindex).filter(timestamp__hour=hourindex).filter(bikes__gt=0)\
+        .extra({'date_found' : "date(timestamp)"}).values('date_found')\
+        .annotate(min_distance=Min(Distance('place_coords', loc))).order_by('min_distance')
+    result_count = len(result)
+    
+    
+    result_ranges = {}
+    percentages = [0.25,0.50,0.75,0.90]
+    p_ind = 0
+    for i in range(result_count): # this finds the minimum distance for which the percentages from the list are fullfiled for bike availability
+        percentage_sum = (i+1)/result_count
+        while p_ind < len(percentages):
+            if percentages[p_ind] <= percentage_sum:
+                result_ranges[str(percentages[p_ind])]=result[i]["min_distance"]
+                p_ind+=1
+            else:
+                break
+    return HttpResponse(json.dumps(result_ranges), content_type='application/json')
+    

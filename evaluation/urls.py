@@ -41,9 +41,16 @@ urlpatterns = [
          """(?P<bike_uid>\w+)/$""",
         views.follow,
         name='follow'),
-
+    
+     # appProbability
+    url(r"""^api/appProbability/(?P<ltlat>[0-9.]+)/(?P<ltlong>[0-9.]+)/"""
+         """(?P<rblat>[0-9.]+)/(?P<rblong>[0-9.]+)/(?P<poslat>[0-9.]+)/(?P<poslong>[0-9.]+)/"""
+         """(?P<dayindex>[1-7])/(?P<hourindex>[0-9]+)$""",
+        views.probability,
+        name='probability'),
+    
     # appStats
     url(r"""^api/appStats/(?P<statistic>\d+)$""",
         views.stats,
-        name='stats'),
+        name='stats')
 ]

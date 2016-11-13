@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>BikeWatch</title>
+        <title>Heatmap Bikes</title>
 		{% load static %}
         <link rel="stylesheet" href="{% static 'leaflet/dist/leaflet.css' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
@@ -13,27 +13,29 @@
     	<script src="{% static 'heatmap.js-amd/build/heatmap.min.js' %}"></script>
 		<script src="{% static 'heatmap.js-amd/plugins/leaflet-heatmap/leaflet-heatmap.js' %}"></script>
 		<script src="{% static 'seiyria-bootstrap-slider/dist/bootstrap-slider.min.js' %}"></script>
-		<script src="{% static 'chart.js/dist/Chart.min.js' %}"></script>
         <script src="{% static 'evaluation/map.cls.js' %}"></script>
         <script src="{% static 'evaluation/app.cls.js' %}"></script>
         <script src="{% static 'evaluation/appView.cls.js' %}"></script>
         <link rel="stylesheet" href="{% static 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}">
         <script src="{% static 'evaluation/appPath.cls.js' %}"></script>
         <script src="{% static 'evaluation/appFollow.cls.js' %}"></script>
-        <script src="{% static 'evaluation/appStats.cls.js' %}"></script>
         <script src="{% static 'evaluation/map_layers/layer_heat.cls.js' %}"></script>
         <script src="{% static 'evaluation/map_layers/layer_path.cls.js' %}"></script>
         <script src="{% static 'evaluation/map_layers/layer_follow.cls.js' %}"></script>
+        <script src="{% static 'evaluation/map_layers/layer_probability.cls.js' %}"></script>
 		<link rel="stylesheet" href="{% static 'seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css' %}">
 		<link rel="stylesheet" href="{% static 'css/evaluation/frame.css' %}">
 		<script src="{% static 'evaluation/appExtrapolation.cls.js' %}"></script>
+        <script src="{% static 'evaluation/appProbability.cls.js' %}"></script>
+        <script src="{% static 'evaluation/appStats.cls.js' %}"></script>
         <script>
             var appConfig = [
                 ["Avaliability by Time", appView],
                 ["Routes of Bikes", appPath],
                 ["Follow one bike", appFollow],
-                ["Extrapolation", appExtrapolation],
-                ["Statistiken", appStats]
+                //["Extrapolation", appExtrapolation],
+				["Probability", appProbability]
+                //["Statistiken", appStats]
             ];
             var defaultApp = 0;
         </script>

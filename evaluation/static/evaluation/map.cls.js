@@ -40,9 +40,11 @@ function heatmapManager(appName) {
           zoom: this.standardZoom,
           layers: [baseLayer]
         });
+		
+		L.control.scale({imperial: false}).addTo(this.map);
         
         this.submapLayer = new submapClass();
-        this.submapLayer.init(this.map, {default_zoom: this.standardZoom, center_lattitude: this.center_lat});
+        this.submapLayer.init(this.map, {mapmanager: this, default_zoom: this.standardZoom, center_lattitude: this.center_lat});
         if(!noload) {
             return this.refreshMap();
         }
