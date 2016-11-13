@@ -1,5 +1,14 @@
+Dependencies
+============
+
+ * Python3
+ * PostgreSQL 9.2+
+ * PostGIS
+
 Install
 =======
+
+We recommend to create a Python 3 virtual environment:
 
     pyvenv .
     . ./bin/activate
@@ -18,8 +27,6 @@ Install
 Database
 ========
 
- * PostgreSQL 9.2+
- * PostGIS
 
     psql <db name>
     CREATE EXTENSION postgis;
