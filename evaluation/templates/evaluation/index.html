@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Heatmap Bikes</title>
+        <title>BikeWatch</title>
 		{% load static %}
         <link rel="stylesheet" href="{% static 'leaflet/dist/leaflet.css' %}"/>
 		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"/>
@@ -67,7 +67,14 @@
                 <h4 class="modal-title">About</h4>
               </div>
               <div class="modal-body">
-                  <p>TODO: About text</p>
+                  <p>
+                      This App visualizes data collected about the MVG bikes. <br/>
+Choose one of our apps in the navigation bar on the top and enjoy!<br/><br/>
+
+The data we use recorded all avaliable MVG bikes every 5 minutes from the first of October until now.<br/><br/>
+
+Scraped MVG data provided by <a href="https://twitter.com/robbi5">@robbi5</a>
+                  </p>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">OK</button>
