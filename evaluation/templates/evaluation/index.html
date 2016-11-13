@@ -16,7 +16,6 @@
         <script src="{% static 'evaluation/map.cls.js' %}"></script>
         <script src="{% static 'evaluation/app.cls.js' %}"></script>
         <script src="{% static 'evaluation/appView.cls.js' %}"></script>
-        <script src="{% static 'evaluation/appProbability.cls.js' %}"></script>
         <link rel="stylesheet" href="{% static 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}">
         <script src="{% static 'evaluation/appPath.cls.js' %}"></script>
         <script src="{% static 'evaluation/appFollow.cls.js' %}"></script>
@@ -27,6 +26,8 @@
 		<link rel="stylesheet" href="{% static 'seiyria-bootstrap-slider/dist/css/bootstrap-slider.min.css' %}">
 		<link rel="stylesheet" href="{% static 'css/evaluation/frame.css' %}">
 		<script src="{% static 'evaluation/appExtrapolation.cls.js' %}"></script>
+        <script src="{% static 'evaluation/appProbability.cls.js' %}"></script>
+        <script src="{% static 'evaluation/appStats.cls.js' %}"></script>
         <style>
               body, html { margin:0; padding:0; height:100%;}
               .leaflet-container {
@@ -39,7 +40,8 @@
                 ["Routes of Bikes", appPath],
                 ["Follow one bike", appFollow],
                 ["Extrapolation", appExtrapolation],
-				["Probability", appProbability]
+				["Probability", appProbability],
+                ["Statistiken", appStats]
             ];
             var defaultApp = 0;
         </script>
@@ -56,7 +58,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">Heatmap Bikes</a>
+					<a class="navbar-brand" href="#">BikeWatch</a>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav" id="nav_container">
@@ -102,13 +104,24 @@
 
                     $("#nav_container").append(li);
 
-                    if(i == defaultApp)
-                        //a.click();
-                    ;
+                    if(i == defaultApp) {
+                        a.click();
+                    }
                 }
                 
 
             });
+			var loadOverlay = $('<div>').addClass('loadOverlay');
+			window.showLoader = function(element){
+				var jqEl = (typeof element === "object") ? $(element) : $('#' + element);
+				loadOverlay.hide();
+				jqEl.append(loadOverlay);
+				loadOverlay.fadeIn();
+				console.log("showLoader on " + element);
+			};
+			window.hideLoader = function(){
+				loadOverlay.detach();
+			};
         </script>
     </body>
 

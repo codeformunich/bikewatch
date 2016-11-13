@@ -48,4 +48,9 @@ urlpatterns = [
          """(?P<dayindex>[1-7])/(?P<hourindex>[0-9]+)$""",
         views.probability,
         name='probability'),
+    
+    # appStats
+    url(r"""^api/appStats/(?P<statistic>\d+)$""",
+        views.stats,
+        name='stats')
 ]

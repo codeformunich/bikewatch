@@ -36,4 +36,4 @@ function appFollow() {
 
     //this.stopApp = app.prototype.stopApp
 }
-appPath.prototype = app.prototype;
+appFollow.prototype = app.prototype;

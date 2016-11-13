@@ -14,6 +14,7 @@ app.prototype = {
         var self = this;
         this.mapDiv = mapDiv;
         this.controlDiv = controlDiv;
+        showLoader(mapDiv);
         $.get('/controlbars/'+ this.appName, function(data) {
             $('#' + self.controlDiv).html(data);
             self.onNavbarLoaded();

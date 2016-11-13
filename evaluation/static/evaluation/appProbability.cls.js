@@ -42,6 +42,10 @@ function appProbability() {
         app.prototype.runApp.call(this,mapDiv,controlDiv);
     }
     
+    this.stopApp = function() {
+        app.prototype.stopApp.call(this);
+    }
+    
     //this.stopApp = app.prototype.stopApp
 }
 appView.prototype = app.prototype;
