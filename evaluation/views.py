@@ -17,7 +17,15 @@ def index(request):
 
 
 def get_app_controlbar(request, appName):
-    context = {}
+    # calculate initial date depending on appName
+    initial_date = None
+    if appName == "appPath":
+        initial_date = TextCache.objects.get(key='view_dates_newest').text
+    elif appName == "appView":
+        initial_date = TextCache.objects.get(key='path_dates_newest').text
+
+    context = {'initial_date': initial_date}
+
     if not appName.isalnum():
         return HttpResponse(status=400)
 
