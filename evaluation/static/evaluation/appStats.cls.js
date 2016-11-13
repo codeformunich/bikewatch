@@ -24,7 +24,7 @@ function appStats() {
 
         console.log("Show Stats: " + currentItem.innerText);
 
-        $.get('/api/appStats/' + currentItem.attr('data-src'), function(data) {
+        $.getJSON('/api/appStats/' + currentItem.attr('data-src'), function(data) {
             displayContent(data);
         }).fail(function(data) {
             //self.errorFunction("Error loading navigation bar. Please reload the page")
