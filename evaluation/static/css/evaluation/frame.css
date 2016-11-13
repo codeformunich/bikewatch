@@ -19,6 +19,15 @@ h1 a {
 	padding-top: 10px;
 }
 
+#slider {
+	background: #81bfde;
+}
+
+.slider.slider-horizontal{
+	width: 95%;
+}
+
+/* SIDE MENU */
 .nav-sidebar {
 	margin-right: -15px;
 	margin-left: -15px;
@@ -28,15 +37,9 @@ h1 a {
 	background-color: #428bca;
 }
 
-#slider {
-	background: #81bfde;
-}
-
-.slider.slider-horizontal{
-	width: 95%;
-}
 
 
+/*  LOADER ANIMATION  */
 div.loadOverlay {
 	position: absolute;
 	background: rgba(0, 0, 0, 0.5);
@@ -52,12 +55,12 @@ div.loadOverlay:before {
 }
 
 div.loadOverlay:before, .loader {
-	border: 16px solid #555; /* Light grey */
-	border-top: 16px solid #3498db; /* Blue */
+	border: 1em solid #555; /* Light grey */
+	border-top: 1em solid #3498db; /* Blue */
 	border-radius: 50%;
-	width: 120px;
-	height: 120px;
-	animation: spin 2s linear infinite;
+	width: 4em;
+	height: 4em;
+	animation: spin 1s linear infinite;
 }
 
 @keyframes spin {

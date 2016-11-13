@@ -107,19 +107,18 @@
                     }
                 }
 
-
-				var loadOverlay = $('<div>').addClass('loadOverlay');
-                window.showLoader = function(element){
-					var jqEl = (typeof element === "object") ? $(element) : $('#' + element);
-					jqEl.append(loadOverlay);
-					loadOverlay.fadeIn();
-					console.log("showLoader on " + element);
-				}
-				window.hideLoader = function(){
-					loadOverlay.detach();
-				}
-
             });
+			var loadOverlay = $('<div>').addClass('loadOverlay');
+			window.showLoader = function(element){
+				var jqEl = (typeof element === "object") ? $(element) : $('#' + element);
+				loadOverlay.hide();
+				jqEl.append(loadOverlay);
+				loadOverlay.fadeIn();
+				console.log("showLoader on " + element);
+			};
+			window.hideLoader = function(){
+				loadOverlay.detach();
+			};
         </script>
     </body>
 
