@@ -115,6 +115,9 @@
 					loadOverlay.fadeIn();
 					console.log("showLoader on " + element);
 				}
+				window.hideLoader = function(){
+					loadOverlay.detach();
+				}
 
             });
         </script>
