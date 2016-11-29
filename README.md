@@ -1,32 +1,24 @@
-Dependencies
-============
+# Bikewatch
 
- * Python3 (with Django)
- * npm / bowser
+Visualize bike data in munich
+
+## Dependencies
+
+ * Python3 + virtualenv
+ * npm
+ * bower
  * PostgreSQL 9.2+
  * Redis
  * PostGIS
 
-Install
-=======
-
-We recommend to create a Python 3 virtual environment:
-
-    pyvenv .
-    . ./bin/activate
-
-Then clone our software:
-
-    git clone git@gitlab.lrz.de:ga73vuy/hackatum.git
-
-And install the Python and Bower dependencies:
-
-    npm install bower
-
-    cd hackatum
-    pip install -r requirements.txt
-
-    python manage.py bower install
+## Setup
+```
+git clone https://github.com/codeformunich/bikewatch
+cd bikewatch
+virtualenv -p python3 .
+pip install -r requirements.txt
+python manage.py bower install
+```
 
 Now you have to configure the database connection and connection for Redis.
 Edit this in mvgrad/settings.py:
@@ -67,8 +59,7 @@ Maybe these install instructions for PostGIS are helpful:
 https://docs.djangoproject.com/en/1.10/ref/contrib/gis/install/
 
 
-Import and generate data
-========================
+## Working with the data
 
 We use the data from https://data.robbi5.com/nextbike-mvgrad/.
 
